@@ -1,6 +1,7 @@
 package com.cai.campus.controller;
 
 import com.cai.campus.entity.User;
+import com.cai.campus.model.Response;
 import com.cai.campus.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import javax.annotation.Resource;
  * (User)表控制层
  *
  * @author 蔡宇飞
- * @since 2020-02-19 22:14:14
+ * @since 2020-02-21 17:05:05
  */
 @RestController
 @RequestMapping("user")
@@ -23,38 +24,52 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 通过主键查询单条数据
+     * 注册用户
      *
-     * @param id 主键
-     * @return 单条数据
+     * @param phone    手机号
+     * @param password 密码
+     * @return json
      */
-    @GetMapping("selectOne")
-    public User selectOne(Integer id) {
-        return this.userService.queryById(id);
+    @GetMapping("register")
+    public Response<User> registerApi(@Param("phone") String phone, @Param("password") String password) {
+        return this.userService.register(phone, password);
     }
 
     /**
-     * 通过电话号码查询单条数据
+     * 用户登录
      *
-     * @param phoneNumber 电话号码
-     * @return 单条数据
+     * @param phone    手机号
+     * @param password 密码
+     * @return json
      */
-    @GetMapping("query/phoneNumber")
-    public User queryUserByPhoneNumberApi(String phoneNumber) {
-        return this.userService.queryByPhoneNumber(phoneNumber);
+    @GetMapping("login")
+    public Response<Object> loginApi(@Param("phone") String phone, @Param("password") String password) {
+        return this.userService.login(phone, password);
     }
 
-    @GetMapping("addUser")
-    public User addUserApi(
-            @Param("realName") String realName,
-            @Param("phoneNumber") String phoneNumber,
-            @Param("password") String password) {
-        User user = new User();
-        user.setRealname(realName);
-        user.setPhonenumber(phoneNumber);
-        user.setPassword(password);
-        System.out.println(user.toString());
-        return this.userService.insert(user);
+    /**
+     * 按类型查询用户
+     *
+     * @param type  查询类型 {id, phone}
+     * @param value 查询值
+     * @return Json
+     */
+    @GetMapping("query/{type}")
+    public Response<User> queryApi(@PathVariable("type") String type, String value) {
+        return this.userService.query(type, value);
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param uid      uid确定用户
+     * @param password 要修改的密码
+     * @param name     要修改的名称
+     * @return json
+     */
+    @GetMapping("update")
+    public Response<User> updateApi(@Param("uid") int uid, @Param("password") String password, @Param("name") String name) {
+        return this.userService.update(uid, password, name);
     }
 
 }
