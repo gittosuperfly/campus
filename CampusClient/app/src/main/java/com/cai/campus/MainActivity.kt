@@ -12,7 +12,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setContentView(R.layout.activity_main)
-        start()
     }
 
 }

@@ -1,12 +1,11 @@
 package com.cai.campus.appFramework.base
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import com.orhanobut.logger.Logger
+
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -14,8 +13,13 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
     }
 
-    fun start() {
-        setHalfTransparent()
+    override fun setContentView(@LayoutRes layoutResID: Int) {
+        delegate.setContentView(layoutResID)
+        start()
+    }
+
+    private fun start() {
+        Logger.d("Activity create! run start")
         initView()
         initData()
         subscribeOnView()
@@ -24,30 +28,5 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun initView() {}
     open fun initData() {}
     open fun subscribeOnView() {}
-
-
-    /**
-     * 全透状态栏
-     */
-    protected fun setStatusBarFullTransparent() {
-        val window: Window = window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.decorView.systemUiVisibility =
-            (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.TRANSPARENT
-    }
-
-    /**
-     * 半透明状态栏
-     */
-    protected fun setHalfTransparent() {
-        val decorView: View = window.decorView
-        val option: Int =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        decorView.systemUiVisibility = option
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-    }
-
 
 }
