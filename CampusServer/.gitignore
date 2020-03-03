@@ -7,8 +7,6 @@
 
 *.iws
 
-*.jar
-
 *.sw?
 
 *~
@@ -60,8 +58,6 @@ dependency-reduced-pom.xml
 dump.rdb
 
 interpolated*.xml
-
-lib/ 
 
 manifest.yml
 

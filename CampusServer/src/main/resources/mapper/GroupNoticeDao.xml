@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cai.campus.server.dao.GroupNoticeDao">
+
+    <resultMap type="com.cai.campus.server.entity.GroupNotice" id="GroupNoticeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="groupId" column="group_id" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="releaseTime" column="release_time" jdbcType="INTEGER"/>
+        <result property="notice" column="notice" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GroupNoticeMap">
+        select
+          id, group_id, uid, release_time, notice
+        from campus.group_notice
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GroupNoticeMap">
+        select
+          id, group_id, uid, release_time, notice
+        from campus.group_notice
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GroupNoticeMap">
+        select
+          id, group_id, uid, release_time, notice
+        from campus.group_notice
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="groupId != null">
+                and group_id = #{groupId}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="releaseTime != null">
+                and release_time = #{releaseTime}
+            </if>
+            <if test="notice != null and notice != ''">
+                and notice = #{notice}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into campus.group_notice(group_id, uid, release_time, notice)
+        values (#{groupId}, #{uid}, #{releaseTime}, #{notice})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update campus.group_notice
+        <set>
+            <if test="groupId != null">
+                group_id = #{groupId},
+            </if>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="releaseTime != null">
+                release_time = #{releaseTime},
+            </if>
+            <if test="notice != null and notice != ''">
+                notice = #{notice},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from campus.group_notice where id = #{id}
+    </delete>
+
+</mapper>

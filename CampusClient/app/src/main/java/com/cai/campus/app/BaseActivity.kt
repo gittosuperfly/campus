@@ -1,4 +1,4 @@
-package com.cai.campus.appFramework.base
+package com.cai.campus.app
 
 import android.os.Bundle
 import android.os.PersistableBundle
