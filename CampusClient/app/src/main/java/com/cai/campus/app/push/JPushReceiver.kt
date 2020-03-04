@@ -2,12 +2,12 @@ package com.cai.campus.app.push
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import cn.jpush.android.api.CustomMessage
 import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.api.NotificationMessage
 import cn.jpush.android.service.JPushMessageReceiver
 import com.cai.campus.app.BaseApplication
+import com.orhanobut.logger.Logger
 
 class JPushReceiver : JPushMessageReceiver() {
     /**
@@ -15,7 +15,8 @@ class JPushReceiver : JPushMessageReceiver() {
      */
     override fun onConnected(context: Context, b: Boolean) {
         super.onConnected(context, b)
-        Log.e(TAG, "onConnected")
+        Logger.t(TAG).d("极光推送服务器已连接...")
+        BaseApplication.ahaha()
     }
 
     /**
@@ -31,6 +32,13 @@ class JPushReceiver : JPushMessageReceiver() {
      */
     override fun onAliasOperatorResult(context: Context, jPushMessage: JPushMessage) {
         super.onAliasOperatorResult(context, jPushMessage)
+        Logger.t(TAG).d("Alias set!")
+        Log.e(TAG, jPushMessage.toString())
+    }
+
+    override fun onTagOperatorResult(context: Context?, jPushMessage: JPushMessage?) {
+        super.onTagOperatorResult(context, jPushMessage)
+        Logger.t(TAG).d("Tag set!")
         Log.e(TAG, jPushMessage.toString())
     }
 

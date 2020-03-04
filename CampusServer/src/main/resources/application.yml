@@ -11,3 +11,6 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.cai.campusl
+push:
+  appKey: af596e0987718729c1155e0d
+  secret: d1239b0e1636ca47d3c140a5
