@@ -1,12 +1,15 @@
 package com.cai.campus.push;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 
+@Slf4j
 @RestController
 @RequestMapping("push")
 public class PushController {
@@ -14,10 +17,13 @@ public class PushController {
     @Resource
     private PushService pushService;
 
-    @GetMapping("test")
-    public void func() {
-        PushData pushData = PushData.builder().alert("123456789").build();
-        pushService.sendToTag(pushData, "tag3", "tag2");
+    @GetMapping("test/{alter}")
+    public void func(@PathVariable String alter) {
+
+        System.out.println(alter);
+
+        PushData pushData = PushData.builder().alert(alter).build();
+        pushService.sendToAll(pushData);
     }
 
     @GetMapping("")
