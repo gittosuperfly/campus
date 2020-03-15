@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2020-03-14 17:42:08
  */
 @RestController
-@RequestMapping("userAccount")
+@RequestMapping("api/user")
 public class UserAccountController {
     /**
      * 服务对象
@@ -23,13 +23,17 @@ public class UserAccountController {
     @Resource
     private UserAccountService userAccountService;
 
-    /**
-     * 用户注册
-     *
-     * @param phone 电话
-     * @param password 密码
-     * @return 单条数据
-     */
+    @PostMapping("register")
+    public Response<Object> registerUserApi(String phone, String password) {
+        if (userAccountService.queryByPhone(phone) == null) {
+            UserAccount userAccount = new UserAccount(phone, password);
+            userAccountService.insert(userAccount);
+            return Response.ok("注册成功");
+        } else {
+            return Response.error(400, "此手机号码已注册");
+        }
+    }
+
 
     /**
      * 查询用户信息
@@ -38,7 +42,7 @@ public class UserAccountController {
      * @param value 值
      * @return 单条数据
      */
-    @GetMapping("query/{type}")
+    @PostMapping("query/{type}")
     public Response<UserAccount> queryUserApi(@PathVariable("type") String type, String value) {
         if (type.equals("id")) {
             return Response.ok(this.userAccountService.queryById(Integer.parseInt(value)));

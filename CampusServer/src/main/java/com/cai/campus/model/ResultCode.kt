@@ -10,8 +10,8 @@ annotation class ResultCode {
         const val SUCCESS: Int = 1
 
         const val BAD_REQUEST = 400 //请求参数有误
-        const val UNAUTHORIZED = 401
-        const val FORBIDDEN = 403
+        const val UNAUTHORIZED = 401 //未授权
+        const val FORBIDDEN = 403 //拒绝访问
         const val NOT_FOUND = 404
         const val GONE = 410
         const val PARAM_REQUIRED = 411

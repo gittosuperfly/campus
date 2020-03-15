@@ -9,6 +9,16 @@ import java.io.Serializable;
  * @since 2020-03-14 17:42:05
  */
 public class UserAccount implements Serializable {
+
+    public UserAccount() {
+    }
+
+    public UserAccount(String phone, String password) {
+        this.phone = phone;
+        this.password = password;
+    }
+
+
     private static final long serialVersionUID = 573386372958693835L;
 
     private Integer uid;

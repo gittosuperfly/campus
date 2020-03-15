@@ -16,6 +16,11 @@ class Response<T> private constructor(
         }
 
         @JvmStatic
+        fun <T> ok(message: String): Response<T> {
+            return Response(result = ResultCode.SUCCESS, message = message)
+        }
+
+        @JvmStatic
         fun <T> error(result: @ResultCode Int, message: String): Response<T> {
             return Response(result = result, message = message)
         }
