@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * (UserAccount)表数据库访问层
  *
- * @author 蔡宇飞
- * @since 2020-03-03 17:46:37
+ * @author makejava
+ * @since 2020-03-14 17:42:06
  */
 public interface UserAccountDao {
 
@@ -19,6 +19,14 @@ public interface UserAccountDao {
      * @return 实例对象
      */
     UserAccount queryById(Integer uid);
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param phone 主键
+     * @return 实例对象
+     */
+    UserAccount queryByPhone(String phone);
 
     /**
      * 查询指定行数据

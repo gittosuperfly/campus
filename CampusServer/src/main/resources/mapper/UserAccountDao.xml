@@ -6,20 +6,34 @@
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="logo" column="logo" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="INTEGER"/>
+        <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
+    <!--查询单个id-->
     <select id="queryById" resultMap="UserAccountMap">
         select
-          uid, phone, password
+          uid, phone, password, name, sex, logo, birthday, introduction, email
         from campus.user_account
         where uid = #{uid}
+    </select>
+
+    <!--查询单个电话-->
+    <select id="queryByPhone" resultMap="UserAccountMap">
+        select
+          uid, phone, password, name, sex, logo, birthday, introduction, email
+        from campus.user_account
+        where phone = #{phone}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserAccountMap">
         select
-          uid, phone, password
+          uid, phone, password, name, sex, logo, birthday, introduction, email
         from campus.user_account
         limit #{offset}, #{limit}
     </select>
@@ -27,7 +41,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserAccountMap">
         select
-          uid, phone, password
+          uid, phone, password, name, sex, logo, birthday, introduction, email
         from campus.user_account
         <where>
             <if test="uid != null">
@@ -39,13 +53,31 @@
             <if test="password != null and password != ''">
                 and password = #{password}
             </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="logo != null and logo != ''">
+                and logo = #{logo}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and introduction = #{introduction}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into campus.user_account(phone, password)
-        values (#{phone}, #{password})
+        insert into campus.user_account(phone, password, name, sex, logo, birthday, introduction, email)
+        values (#{phone}, #{password}, #{name}, #{sex}, #{logo}, #{birthday}, #{introduction}, #{email})
     </insert>
 
     <!--通过主键修改数据-->
@@ -57,6 +89,24 @@
             </if>
             <if test="password != null and password != ''">
                 password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="logo != null and logo != ''">
+                logo = #{logo},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
             </if>
         </set>
         where uid = #{uid}

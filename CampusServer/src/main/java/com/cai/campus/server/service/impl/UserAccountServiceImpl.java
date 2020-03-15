@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * (UserAccount)表服务实现类
  *
- * @author 蔡宇飞
- * @since 2020-03-03 17:46:37
+ * @author makejava
+ * @since 2020-03-14 17:42:07
  */
 @Service("userAccountService")
 public class UserAccountServiceImpl implements UserAccountService {
@@ -28,6 +28,17 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount queryById(Integer uid) {
         return this.userAccountDao.queryById(uid);
+    }
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param phone 电话
+     * @return 实例对象
+     */
+    @Override
+    public UserAccount queryByPhone(String phone) {
+        return this.userAccountDao.queryByPhone(phone);
     }
 
     /**

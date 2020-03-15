@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * (UserAccount)表服务接口
  *
- * @author 蔡宇飞
- * @since 2020-03-03 17:46:37
+ * @author makejava
+ * @since 2020-03-14 17:42:07
  */
 public interface UserAccountService {
 
@@ -18,6 +18,15 @@ public interface UserAccountService {
      * @return 实例对象
      */
     UserAccount queryById(Integer uid);
+
+    /**
+     * 通过电话查询单条数据
+     *
+     * @param phone 电话号码
+     * @return 实例对象
+     */
+    UserAccount queryByPhone(String phone);
+
 
     /**
      * 查询多条数据

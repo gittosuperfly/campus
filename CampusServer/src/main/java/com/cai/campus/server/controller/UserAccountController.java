@@ -1,5 +1,7 @@
 package com.cai.campus.server.controller;
 
+import com.cai.campus.model.Response;
+import com.cai.campus.model.ResultCode;
 import com.cai.campus.server.entity.UserAccount;
 import com.cai.campus.server.service.UserAccountService;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +11,8 @@ import javax.annotation.Resource;
 /**
  * (UserAccount)表控制层
  *
- * @author 蔡宇飞
- * @since 2020-03-03 17:46:37
+ * @author caiyufei
+ * @since 2020-03-14 17:42:08
  */
 @RestController
 @RequestMapping("userAccount")
@@ -22,14 +24,29 @@ public class UserAccountController {
     private UserAccountService userAccountService;
 
     /**
-     * 通过主键查询单条数据
+     * 用户注册
      *
-     * @param id 主键
+     * @param phone 电话
+     * @param password 密码
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public UserAccount selectOne(Integer id) {
-        return this.userAccountService.queryById(id);
+
+    /**
+     * 查询用户信息
+     *
+     * @param type  类型 type {id, phone}
+     * @param value 值
+     * @return 单条数据
+     */
+    @GetMapping("query/{type}")
+    public Response<UserAccount> queryUserApi(@PathVariable("type") String type, String value) {
+        if (type.equals("id")) {
+            return Response.ok(this.userAccountService.queryById(Integer.parseInt(value)));
+        } else if (type.equals("phone")) {
+            return Response.ok(this.userAccountService.queryByPhone(value));
+        } else {
+            return Response.error(ResultCode.BAD_REQUEST, "查询类型错误");
+        }
     }
 
 }

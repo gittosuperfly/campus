@@ -9,7 +9,7 @@ annotation class ResultCode {
     companion object {
         const val SUCCESS: Int = 1
 
-        const val BAD_REQUEST = 400
+        const val BAD_REQUEST = 400 //请求参数有误
         const val UNAUTHORIZED = 401
         const val FORBIDDEN = 403
         const val NOT_FOUND = 404
