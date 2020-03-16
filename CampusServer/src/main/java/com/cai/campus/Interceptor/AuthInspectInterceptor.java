@@ -37,7 +37,7 @@ public class AuthInspectInterceptor implements HandlerInterceptor {
                     .serializeNulls()
                     .setPrettyPrinting()
                     .create()
-                    .toJson(Response.error(ResultCode.UNAUTHORIZED, "未授权"));
+                    .toJson(Response.get(ResultCode.UNAUTHORIZED, "未授权"));
             PrintWriter responseWriter = response.getWriter();
             responseWriter.write(responseData);
             responseWriter.flush();
