@@ -2,9 +2,8 @@ package com.cai.campus.app
 
 import android.app.Application
 import android.content.Context
-import cn.jpush.android.api.JPushInterface
-import com.cai.campus.collocation.LoggerCollocation
-import com.orhanobut.logger.Logger
+import com.mob.MobSDK
+import com.mob.pushsdk.MobPush
 
 
 class BaseApplication : Application() {
@@ -13,27 +12,25 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
-        Logger.addLogAdapter(LoggerCollocation.getLoggerAdapter())
-        JPushInterface.setDebugMode(true)
-        JPushInterface.init(this)
-
-
+        initMobSDK()
     }
 
-
+    private fun initMobSDK() {
+        MobSDK.init(this)
+        MobSDK.submitPolicyGrantResult(true, null)
+        MobPush.initMobPush()
+    }
 
     companion object {
         var context: Application? = null
         fun getContext(): Context {
             return context!!
         }
-
-        fun ahaha(){
-            val set = HashSet<String>()
-            set += "tag1"
-            JPushInterface.setTags(context, 1, set)
-        }
     }
+}
 
-
+object AppContext {
+    fun get(): Context {
+        return BaseApplication.getContext()
+    }
 }

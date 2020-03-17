@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.orhanobut.logger.Logger
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -19,7 +18,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun start() {
-        Logger.d("Activity create! run start")
         initView()
         initData()
         subscribeOnView()

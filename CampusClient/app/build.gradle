@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 29
@@ -12,14 +13,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-        }
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "af596e0987718729c1155e0d",
-                JPUSH_CHANNEL: "developer-default",
-        ]
     }
     buildTypes {
         release {
@@ -27,46 +20,62 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
+    MobSDK {
+        appKey "2e6b695015e6c"
+        appSecret "4b9e0b4d20c2a9031149643fbbb349dd"
+        MobPush {
+            badge true
+            devInfo {
+                HUAWEI {
+                    appId "101881369"
+                }
+                XIAOMI {
+                    appId "2882303761518316436"
+                    appKey "5311831657436"
+                }
+//                MEIZU {
+//                    appId "魅族的appid"
+//                    appKey "魅族的appkey"
+//                }
+//                OPPO {
+//                    appKey "OPPO的appKey"
+//                    appSecret "OPPO的appSecret"
+//                }
+//                VIVO {
+//                    appId "应用对应的vivo appID"
+//                    appKey "应用对应的vivo appKey"
+//                }
+            }
+        }
+        SMSSDK {}
+    }
 
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    //AnKo 此库作者已弃用，这里使用一些简单功能方便开发。后期可能会自己实现相关功能后弃用
-    implementation 'org.jetbrains.anko:anko-commons:0.10.8'
-    //Logger
-    implementation 'com.orhanobut:logger:2.2.0'
-    //kotlin协程
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    //Retrofit and Gson
-    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    //Dagger2
-    implementation 'com.google.dagger:dagger-android:2.26'
-    implementation 'com.google.dagger:dagger-android-support:2.26'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.26'
-    //AndroidAutoSize
-    implementation 'me.jessyan:autosize:1.2.0'
-    //JPush
-    implementation 'cn.jiguang.sdk:jpush:3.5.6'
-    implementation 'cn.jiguang.sdk:jcore:2.2.8'
-    //JUnit单元测试
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        implementation 'androidx.core:core-ktx:1.2.0'
+        implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        //AnKo 此库作者已弃用，这里使用一些简单功能方便开发。后期可能会自己实现相关功能后弃用
+        implementation 'org.jetbrains.anko:anko-commons:0.10.8'
+        //kotlin协程
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
+        //RxJava
+        implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+        implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+        //Retrofit
+        implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+        implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+        //Glide
+        implementation 'com.github.bumptech.glide:glide:4.11.0'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+        //AndroidAutoSize
+        implementation 'me.jessyan:autosize:1.2.0'
+    }
 }
