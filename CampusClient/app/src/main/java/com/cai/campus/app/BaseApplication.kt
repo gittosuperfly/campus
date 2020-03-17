@@ -1,24 +1,15 @@
 package com.cai.campus.app
 
 import android.app.Application
-import android.content.Context
-import com.mob.MobSDK
-import com.mob.pushsdk.MobPush
+import com.cai.campus.common.push.PushManager
+import com.mob.MobApplication
 
-
-class BaseApplication : Application() {
-
+class BaseApplication : MobApplication() {
 
     override fun onCreate() {
         super.onCreate()
         context = this
-        initMobSDK()
-    }
-
-    private fun initMobSDK() {
-        MobSDK.init(this)
-        MobSDK.submitPolicyGrantResult(true, null)
-        MobPush.initMobPush()
+        PushManager()
     }
 
     companion object {
