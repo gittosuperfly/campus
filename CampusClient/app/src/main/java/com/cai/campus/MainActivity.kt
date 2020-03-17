@@ -3,7 +3,6 @@ package com.cai.campus
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import com.cai.campus.app.AppContext
 import com.cai.campus.app.BaseActivity
 import org.jetbrains.anko.toast
 
@@ -16,7 +15,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
 
-        toast(AppContext.get().packageName)
+        show("大家好才是真的好")
     }
 
 }

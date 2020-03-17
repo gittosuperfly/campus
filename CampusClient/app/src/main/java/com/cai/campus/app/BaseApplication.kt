@@ -23,14 +23,5 @@ class BaseApplication : Application() {
 
     companion object {
         var context: Application? = null
-        fun getContext(): Context {
-            return context!!
-        }
-    }
-}
-
-object AppContext {
-    fun get(): Context {
-        return BaseApplication.getContext()
     }
 }
