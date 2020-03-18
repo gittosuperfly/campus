@@ -1,13 +1,16 @@
 package com.cai.campus.common.push
 
 import android.content.Context
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
+import com.cai.campus.app.BaseApplication
 import com.mob.pushsdk.MobPush
 import com.mob.pushsdk.MobPushCustomMessage
 import com.mob.pushsdk.MobPushNotifyMessage
 import com.mob.pushsdk.MobPushReceiver
 
-class PushManager {
+class PushManager(action: PushAction) {
     init {
         pushEventDispatch()
     }
@@ -19,8 +22,7 @@ class PushManager {
                 context: Context,
                 message: MobPushCustomMessage
             ) {
-
-
+                Log.d("caicai", Looper.getMainLooper().thread.name + "   " + message.content)
             }
 
             //接收通知消息
@@ -28,6 +30,7 @@ class PushManager {
                 context: Context,
                 message: MobPushNotifyMessage
             ) {
+                Log.d("caicai", Looper.getMainLooper().thread.name + "   " + message.content)
 
             }
 
