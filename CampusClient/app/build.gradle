@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 29
@@ -12,7 +14,13 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -77,5 +85,13 @@ android {
         annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
         //AndroidAutoSize
         implementation 'me.jessyan:autosize:1.2.0'
+        //ARouter
+        implementation 'com.alibaba:arouter-api:1.5.0'
+        kapt 'com.alibaba:arouter-compiler:1.2.2'
     }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
 }

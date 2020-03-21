@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.app.BaseApplication
 import com.mob.pushsdk.MobPush
 import com.mob.pushsdk.MobPushCustomMessage
@@ -22,7 +23,7 @@ class PushManager(action: PushAction) {
                 context: Context,
                 message: MobPushCustomMessage
             ) {
-                Log.d("caicai", Looper.getMainLooper().thread.name + "   " + message.content)
+                ARouter.getInstance().build("/route/test").navigation()
             }
 
             //接收通知消息
