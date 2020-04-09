@@ -1,6 +1,5 @@
 package com.cai.campus.Interceptor;
 
-import cn.jiguang.common.utils.StringUtils;
 import com.cai.campus.model.Response;
 import com.cai.campus.model.ResultCode;
 import com.google.gson.GsonBuilder;
@@ -28,7 +27,7 @@ public class AuthInspectInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader(WebConfig.TOKEN);
 
-        if (StringUtils.isNotEmpty(token) && token.equals(WebConfig.TOKEN_VALUE)) {
+        if (token != null && !token.equals("") && token.equals(WebConfig.TOKEN_VALUE)) {
             return true;
         } else {
             response.setCharacterEncoding("UTF-8");
