@@ -29,8 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility "1.8"
+        targetCompatibility "1.8"
+    }
+    dataBinding {
+        enabled = true
     }
     MobSDK {
         appKey "2e6b695015e6c"
@@ -45,18 +48,6 @@ android {
                     appId "2882303761518316436"
                     appKey "5311831657436"
                 }
-//                MEIZU {
-//                    appId "魅族的appid"
-//                    appKey "魅族的appkey"
-//                }
-//                OPPO {
-//                    appKey "OPPO的appKey"
-//                    appSecret "OPPO的appSecret"
-//                }
-//                VIVO {
-//                    appId "应用对应的vivo appID"
-//                    appKey "应用对应的vivo appKey"
-//                }
             }
         }
         SMSSDK {}
@@ -77,9 +68,12 @@ android {
         //RxJava
         implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
         implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+        //RxPermissions
+        implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
         //Retrofit
         implementation 'com.squareup.retrofit2:retrofit:2.7.1'
         implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
         //Glide
         implementation 'com.github.bumptech.glide:glide:4.11.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -93,5 +87,8 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:+'
+    implementation 'com.google.android.material:material:+'
+    implementation 'androidx.annotation:annotation:+'
     implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'androidx.lifecycle:lifecycle-extensions:+'
 }

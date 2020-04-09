@@ -17,7 +17,7 @@ import java.lang.reflect.Field
 /**
  * 对SharedPreferences的存取操作进行封装。
  */
-class LocalRepository(clazz: Class<*>) : SharedPreferences.OnSharedPreferenceChangeListener {
+class LocalRepoManager(clazz: Class<*>) : SharedPreferences.OnSharedPreferenceChangeListener {
 
     // 绑定的具体实体类。
     private val entity: PreferenceSupport
@@ -202,7 +202,7 @@ class LocalRepository(clazz: Class<*>) : SharedPreferences.OnSharedPreferenceCha
         private const val WRITE = 2
 
         // 缓存容器
-        private val container = mutableMapOf<Class<*>, LocalRepository>()
+        private val container = mutableMapOf<Class<*>, LocalRepoManager>()
 
         // 后台刷新线程
         private val thread: HandlerThread by lazy {
@@ -225,7 +225,7 @@ class LocalRepository(clazz: Class<*>) : SharedPreferences.OnSharedPreferenceCha
             synchronized(container) {
                 container[clazz]?.let { return it.entity as T }
 
-                val instance = LocalRepository(clazz)
+                val instance = LocalRepoManager(clazz)
                 container[clazz] = instance
                 return instance.entity as T
             }
@@ -249,7 +249,7 @@ class LocalRepository(clazz: Class<*>) : SharedPreferences.OnSharedPreferenceCha
             old = value
         }
 
-        internal fun find(clazz: Class<*>): LocalRepository {
+        internal fun find(clazz: Class<*>): LocalRepoManager {
             return container[clazz]
                 ?: throw RuntimeException("Could not find SharedPreferences by this clazz:[${clazz.canonicalName}]")
         }

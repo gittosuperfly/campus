@@ -1,4 +1,4 @@
-package com.cai.campus.common.toast
+package com.cai.campus.common.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,9 +12,9 @@ import android.widget.Toast
 import com.cai.campus.app.BaseApplication
 
 /**
- * Toast封装类，替代原生Toast
+ * Toast封装类
  */
-class Toast private constructor(private val builder: Builder) {
+class Prompt private constructor(private val builder: Builder) {
 
     private val context: Context = BaseApplication.getAppContext()
     private var toast: Toast? = null
@@ -90,7 +90,15 @@ class Toast private constructor(private val builder: Builder) {
          * 默认提供的Toast实例，在首次使用时进行加载。
          */
         @JvmStatic
-        val DEFAULT: com.cai.campus.common.toast.Toast by lazy { return@lazy newBuilder().build() }
+        val DEFAULT: Prompt by lazy { return@lazy newBuilder().build() }
+
+        fun show(resId: Int) {
+            DEFAULT.show(resId)
+        }
+
+        fun show(message: String?, vararg any: Any) {
+            DEFAULT.show(message, any)
+        }
 
         @JvmStatic
         fun newBuilder(): Builder {
@@ -133,8 +141,8 @@ class Toast private constructor(private val builder: Builder) {
             return this
         }
 
-        fun build(): com.cai.campus.common.toast.Toast {
-            return Toast(this)
+        fun build(): Prompt {
+            return Prompt(this)
         }
     }
 }

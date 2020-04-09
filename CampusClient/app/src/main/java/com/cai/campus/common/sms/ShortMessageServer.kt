@@ -8,7 +8,7 @@ import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SMSManager(
+class ShortMessageServer(
     onSendOk: () -> Unit,
     onCheckOk: () -> Unit,
     onError: (errorResult: SMSErrorResult) -> Unit
@@ -68,8 +68,11 @@ class SMSManager(
 
         var eventHandler: EventHandler? = null
 
-        fun sendCode(phone: String) {
-            SMSSDK.getVerificationCode("86", phone)
+        const val CREATE_CODE = "16492974"
+        const val RESET_CODE = "16492974"
+
+        fun sendCode(phone: String, tempCode: String) {
+            SMSSDK.getVerificationCode(tempCode, "86", phone)
         }
 
         fun submitCode(phone: String, code: String) {
