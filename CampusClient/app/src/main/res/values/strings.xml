@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Team校园</string>
+    <string name="phoneHint">手机号/+86</string>
+    <string name="passwordHint">用户密码</string>
+    <string name="setPasswordHint">设置密码</string>
+    <string name="repeatPasswordHint">确认密码</string>
+    <string name="codeHint">验证码</string>
 </resources>

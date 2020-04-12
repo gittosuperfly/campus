@@ -28,46 +28,49 @@
             android:textColor="#000"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/loginPhoneEdit"
+        <LinearLayout
+            android:id="@+id/loginFormLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/shape_input_background"
-            android:gravity="center"
-            android:hint="手机号"
-            android:inputType="phone"
-            android:textColorHint="@color/input_hint" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/loginPasswordEdit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_input_background"
-            android:gravity="center"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:textColorHint="@color/input_hint" />
-
-        <RelativeLayout
-            android:id="@+id/loginBtn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_login_btn">
-
-            <ImageView
-                android:layout_width="50dp"
+            <EditText
+                android:id="@+id/loginPhoneEdit"
+                style="@style/FormInputTheme"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_right" />
-        </RelativeLayout>
+                android:layout_marginTop="50dp"
+                android:hint="@string/phoneHint"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/loginPasswordEdit"
+                style="@style/FormInputTheme"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:hint="@string/passwordHint"
+                android:inputType="textPassword" />
+
+            <RelativeLayout
+                android:id="@+id/loginBtn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_login_btn_off">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <RelativeLayout

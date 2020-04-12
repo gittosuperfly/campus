@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".features.login.SignUpOrFindActivity">
+
+    <TextView
+        android:id="@+id/pageNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="新用户注册"
+        android:textColor="#000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_login_btn_on" />
+
+    <EditText
+        android:id="@+id/phoneEdit"
+        style="@style/FormInputTheme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/phoneHint"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/passwordEdit"
+        style="@style/FormInputTheme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/setPasswordHint"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/repeatPasswordEdit"
+        style="@style/FormInputTheme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/repeatPasswordHint"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/codeEdit"
+        style="@style/FormInputTheme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/codeHint"
+        android:inputType="number" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/getCodeBtn"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_login_btn_off"
+            android:stateListAnimator="@null"
+            android:text="获取验证码" />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/shape_login_btn_off"
+            android:stateListAnimator="@null"
+            android:text="新用户注册" />
+    </RelativeLayout>
+
+</LinearLayout>

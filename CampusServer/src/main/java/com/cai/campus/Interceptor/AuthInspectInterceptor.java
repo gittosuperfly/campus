@@ -3,6 +3,7 @@ package com.cai.campus.Interceptor;
 import com.cai.campus.model.Response;
 import com.cai.campus.model.ResultCode;
 import com.google.gson.GsonBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +23,12 @@ public class AuthInspectInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(
             HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler) throws Exception {
+            @NotNull HttpServletResponse response,
+            @NotNull Object handler) throws Exception {
 
         String token = request.getHeader(WebConfig.TOKEN);
+
+        System.out.println("请求token："+token);
 
         if (token != null && !token.equals("") && token.equals(WebConfig.TOKEN_VALUE)) {
             return true;
