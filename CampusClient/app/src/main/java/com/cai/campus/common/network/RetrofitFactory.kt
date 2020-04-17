@@ -1,5 +1,10 @@
 package com.cai.campus.common.network
 
+import com.cai.campus.common.network.gson.adapter.DoubleDefaultAdapter
+import com.cai.campus.common.network.gson.adapter.IntegerDefaultAdapter
+import com.cai.campus.common.network.gson.adapter.LongDefaultAdapter
+import com.cai.campus.common.network.gson.adapter.StringNullAdapter
+import com.cai.campus.common.network.interceptor.LoggerInterceptor
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -16,6 +21,13 @@ class RetrofitFactory private constructor() {
         val gson = Gson().newBuilder()
             .setLenient()
             .serializeNulls()
+            .registerTypeAdapter(Int::class.java, IntegerDefaultAdapter())
+            .registerTypeAdapter(Int::class.javaPrimitiveType, IntegerDefaultAdapter())
+            .registerTypeAdapter(Double::class.java, DoubleDefaultAdapter())
+            .registerTypeAdapter(Double::class.javaPrimitiveType, DoubleDefaultAdapter())
+            .registerTypeAdapter(Long::class.java, LongDefaultAdapter())
+            .registerTypeAdapter(Long::class.javaPrimitiveType, LongDefaultAdapter())
+            .registerTypeAdapter(String::class.java, StringNullAdapter())
             .create()
 
         retrofit = Retrofit.Builder()
@@ -33,8 +45,10 @@ class RetrofitFactory private constructor() {
 
     private fun initOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .retryOnConnectionFailure(true)//设置重连
             .connectTimeout(5, TimeUnit.SECONDS)
             .addInterceptor(getAuthInspectInterceptor())
+            .addInterceptor(LoggerInterceptor())
             .readTimeout(5, TimeUnit.SECONDS)
             .build()
     }

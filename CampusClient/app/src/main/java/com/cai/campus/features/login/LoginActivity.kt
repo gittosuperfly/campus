@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.R
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.login_activity.*
 @Route(path = RouterPath.LOGIN_PAGE)
 class LoginActivity : BaseActivity() {
 
-    val viewModel: LoginViewModel = LoginViewModel()
+    private lateinit var viewModel: LoginViewModel
 
     var loginBtnType = false
 
@@ -24,11 +25,17 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setContentView(R.layout.login_activity)
+    }
 
-        viewModel.msg.observe(this, Observer {
+    override fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
-        })
-
+    override fun initData() {
+        if (viewModel.isGoHome()) {
+            ARouter.getInstance().build(RouterPath.HOME_PAGE).navigation()
+            finish()
+        }
     }
 
     override fun initView() {
@@ -38,20 +45,22 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun subscribeOnView() {
-
+        viewModel.msg.observe(this, Observer {
+            Prompt.show(it)
+        })
     }
 
     /* 设置页面点击事件 */
     private fun setViewClickListener() {
-        loginBtn.setOnClickListener {
+        submitBtn.setOnClickListener {
             if (loginBtnType) {
-                viewModel.push()
+                viewModel.login(phoneEdit.text.toString(), passwordEdit.text.toString())
             } else {
                 Prompt.show("请检查账号密码")
             }
         }
 
-        registerBtn.setOnClickListener {
+        toRegisterBtn.setOnClickListener {
             ARouter.getInstance()
                 .build(RouterPath.REGISTER_PAGE)
                 .withInt("type", 1)
@@ -59,7 +68,7 @@ class LoginActivity : BaseActivity() {
                 .navigation()
         }
 
-        findPasswordBtn.setOnClickListener {
+        toFindPasswordBtn.setOnClickListener {
             ARouter.getInstance()
                 .build(RouterPath.REGISTER_PAGE)
                 .withInt("type", 2)
@@ -76,40 +85,40 @@ class LoginActivity : BaseActivity() {
 
     /* 设置页面监听 */
     private fun subscribeViewEvent() {
-        loginPhoneEdit.setOnFocusChangeListener { _, hasFocus ->
+        phoneEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                loginPhoneEdit.hint = ""
+                phoneEdit.hint = ""
             } else {
-                loginPhoneEdit.hint = getString(R.string.phoneHint)
+                phoneEdit.hint = getString(R.string.phoneHint)
             }
         }
 
-        loginPasswordEdit.setOnFocusChangeListener { _, hasFocus ->
+        passwordEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                loginPasswordEdit.hint = ""
+                passwordEdit.hint = ""
             } else {
-                loginPasswordEdit.hint = getString(R.string.passwordHint)
+                passwordEdit.hint = getString(R.string.passwordHint)
             }
         }
 
-        loginPasswordEdit.setTextChangeListener {
+        passwordEdit.setTextChangeListener {
             changeLoginBtnBackground()
         }
-        loginPhoneEdit.setTextChangeListener {
+        phoneEdit.setTextChangeListener {
             changeLoginBtnBackground()
         }
     }
 
 
     private fun changeLoginBtnBackground() {
-        if (loginPhoneEdit.text.isNotEmpty() && loginPasswordEdit.text.isNotEmpty()) {
+        if (phoneEdit.text.isNotEmpty() && passwordEdit.text.isNotEmpty()) {
             if (!loginBtnType) {
-                loginBtn.setBackgroundResource(R.drawable.shape_login_btn_on)
+                submitBtn.setBackgroundResource(R.drawable.shape_login_btn_on)
                 loginBtnType = true
             }
         } else {
             if (loginBtnType) {
-                loginBtn.setBackgroundResource(R.drawable.shape_login_btn_off)
+                submitBtn.setBackgroundResource(R.drawable.shape_login_btn_off)
                 loginBtnType = false
             }
         }

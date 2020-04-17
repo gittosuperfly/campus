@@ -3,6 +3,8 @@ package com.cai.campus.features.login
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.cai.campus.R
 import com.cai.campus.app.BaseActivity
@@ -17,7 +19,9 @@ import kotlinx.android.synthetic.main.signup_or_find_activity.*
 @Route(path = RouterPath.REGISTER_PAGE)
 class SignUpOrFindActivity : BaseActivity() {
 
-    var isCountdown = false
+    private lateinit var viewModel: SignUpOrFindViewModel
+
+    private var isCountdown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,10 @@ class SignUpOrFindActivity : BaseActivity() {
         }
     }
 
+    override fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(SignUpOrFindViewModel::class.java)
+    }
+
 
     override fun initData() {
         super.initData()
@@ -43,7 +51,7 @@ class SignUpOrFindActivity : BaseActivity() {
             Prompt.show("获取验证码成功")
             countdown()
         }, {
-            Prompt.show("验证成功")
+            viewModel.registerUser(phoneEdit.text.toString(), passwordEdit.text.toString())
         }, {
             Prompt.show(it.message)
         })
@@ -56,12 +64,19 @@ class SignUpOrFindActivity : BaseActivity() {
 
     }
 
+    override fun subscribeOnView() {
+        viewModel.msg.observe(this, Observer {
+            Prompt.show(it)
+        })
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         ShortMessageServer.unregister()
     }
 
     private fun setViewClickListener() {
+
         getCodeBtn.setOnClickListener {
             val phone = phoneEdit.text.toString()
             if (phone.isNotEmpty() && Check.isMobileNum(phone)) {
@@ -72,6 +87,18 @@ class SignUpOrFindActivity : BaseActivity() {
                 }
             } else {
                 Prompt.show("请检查您的手机号码是否正确")
+            }
+        }
+
+        submitBtn.setOnClickListener {
+            val phone = phoneEdit.text.toString()
+            val password = passwordEdit.text.toString()
+            val repeatPassword = repeatPasswordEdit.text.toString()
+            val code = codeEdit.text.toString()
+            if (password == repeatPassword) {
+                ShortMessageServer.submitCode(phone, code)
+            } else {
+                Prompt.show("两次密码不一致")
             }
         }
     }

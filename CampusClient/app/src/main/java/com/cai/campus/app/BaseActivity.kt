@@ -17,7 +17,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-
     }
 
     override fun setContentView(@LayoutRes layoutResID: Int) {
@@ -28,11 +27,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun start() {
+        initViewModel()
         initData()
         initView()
         subscribeOnView()
     }
 
+    open fun initViewModel(){}
     open fun initData() {}
     open fun initView() {}
     open fun subscribeOnView() {}

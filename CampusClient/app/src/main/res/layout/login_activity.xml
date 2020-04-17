@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/loginPhoneEdit"
+                android:id="@+id/phoneEdit"
                 style="@style/FormInputTheme"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -44,7 +44,7 @@
                 android:inputType="phone" />
 
             <EditText
-                android:id="@+id/loginPasswordEdit"
+                android:id="@+id/passwordEdit"
                 style="@style/FormInputTheme"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -53,7 +53,7 @@
                 android:inputType="textPassword" />
 
             <RelativeLayout
-                android:id="@+id/loginBtn"
+                android:id="@+id/submitBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
@@ -79,14 +79,14 @@
         android:layout_alignParentBottom="true">
 
         <TextView
-            android:id="@+id/findPasswordBtn"
+            android:id="@+id/toFindPasswordBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="找回密码" />
 
         <TextView
-            android:id="@+id/registerBtn"
+            android:id="@+id/toRegisterBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
