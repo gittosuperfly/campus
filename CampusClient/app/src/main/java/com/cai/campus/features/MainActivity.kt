@@ -1,7 +1,6 @@
 package com.cai.campus.features
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,36 +17,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 @Route(path = RouterPath.MAIN_PAGE)
 class MainActivity : AppCompatActivity() {
 
-    private val appRepo = LocalRepoManager.load(AppData::class.java)
-
-    private lateinit var viewModel: LoginViewModel
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        hello.setOnClickListener {
+        home.setOnClickListener {
             ARouter.getInstance().build(RouterPath.HOME_PAGE).navigation()
         }
 
-        submit.setOnClickListener {
-            Prompt.show(appRepo.isLogin.toString())
-        }
-
-        show.setOnClickListener {
+        login.setOnClickListener {
             ARouter.getInstance().build(RouterPath.LOGIN_PAGE).navigation()
         }
-
-        queryBtn.setOnClickListener {
-            val value = phoneEdit.text.toString().toInt()
-            viewModel.test(value)
-        }
-
-        viewModel.msg.observe(this, Observer {
-            Prompt.show(it)
-        })
 
     }
 }

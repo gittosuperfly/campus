@@ -22,15 +22,18 @@ class SignUpOrFindActivity : BaseActivity() {
     private lateinit var viewModel: SignUpOrFindViewModel
 
     private var isCountdown = false
+    private var type: Int? = 0
+    private var pageName: String? = ""
+
+    private var inputPhone: String = ""
+    private var inputPassword: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        setContentView(R.layout.signup_or_find_activity)
+        initActivity(this, R.layout.signup_or_find_activity)
 
-        val type = intent.getIntExtra("type", 0)
-        val pageName = intent.getStringExtra("pageName")
-
+        type = intent.getIntExtra("type", 0)
+        pageName = intent.getStringExtra("pageName")
 
         pageNameTv.text = pageName
         submitBtn.text = when (type) {
@@ -40,33 +43,36 @@ class SignUpOrFindActivity : BaseActivity() {
         }
     }
 
-    override fun initViewModel() {
+    override fun init() {
         viewModel = ViewModelProvider(this).get(SignUpOrFindViewModel::class.java)
-    }
 
-
-    override fun initData() {
-        super.initData()
         ShortMessageServer({
             Prompt.show("获取验证码成功")
             countdown()
         }, {
-            viewModel.registerUser(phoneEdit.text.toString(), passwordEdit.text.toString())
+            if (type == 1) {
+                viewModel.registerUser(inputPhone, inputPassword)
+            } else {
+                viewModel.resetPassword(inputPhone, inputPassword)
+            }
         }, {
             Prompt.show(it.message)
         })
-    }
 
-    override fun initView() {
-        super.initView()
         subscribeViewEvent()
         setViewClickListener()
-
     }
+
 
     override fun subscribeOnView() {
         viewModel.msg.observe(this, Observer {
             Prompt.show(it)
+        })
+
+        viewModel.isFinish.observe(this, Observer {
+            if (it) {
+                finish()
+            }
         })
     }
 
@@ -91,12 +97,14 @@ class SignUpOrFindActivity : BaseActivity() {
         }
 
         submitBtn.setOnClickListener {
-            val phone = phoneEdit.text.toString()
-            val password = passwordEdit.text.toString()
+            inputPhone = phoneEdit.text.toString()
+            inputPassword = passwordEdit.text.toString()
             val repeatPassword = repeatPasswordEdit.text.toString()
             val code = codeEdit.text.toString()
-            if (password == repeatPassword) {
-                ShortMessageServer.submitCode(phone, code)
+
+
+            if (inputPassword == repeatPassword) {
+                ShortMessageServer.submitCode(inputPhone, code)
             } else {
                 Prompt.show("两次密码不一致")
             }

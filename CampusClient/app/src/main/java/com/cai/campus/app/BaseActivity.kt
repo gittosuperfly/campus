@@ -1,41 +1,28 @@
 package com.cai.campus.app
 
-import android.content.pm.ActivityInfo
-import android.os.Build
-import android.os.Bundle
-import android.os.PersistableBundle
+import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.WindowManager
+import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-    }
-
-    override fun setContentView(@LayoutRes layoutResID: Int) {
+    fun initActivity(current: Activity, @LayoutRes layoutResID: Int) {
+        current.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         delegate.setContentView(layoutResID)
-        //禁止旋转屏幕
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         start()
     }
 
     private fun start() {
-        initViewModel()
-        initData()
-        initView()
+        init()
         subscribeOnView()
     }
 
-    open fun initViewModel(){}
-    open fun initData() {}
-    open fun initView() {}
+    open fun init() {}
     open fun subscribeOnView() {}
 
 

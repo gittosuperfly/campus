@@ -38,6 +38,14 @@ interface LoginApiServer {
         @Field("password") password: String
     ): Response<String?>
 
+    @POST("/api/user/resetPassword")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun resetPassword(
+        @Field("phone") phone: String,
+        @Field("password") password: String
+    ): Response<String?>
+
     @POST("/api/user/query/{type}")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")

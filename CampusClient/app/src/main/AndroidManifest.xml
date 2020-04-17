@@ -18,11 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".features.home.HomeActivity"></activity>
+        tools:ignore="LockedOrientationActivity">
+        <activity android:name=".features.home.HomeActivity" />
         <activity android:name=".features.login.SignUpOrFindActivity" />
         <activity android:name=".features.login.LoginActivity" />
-        <activity android:name=".features.MainActivity">
+        <activity
+            android:name=".features.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
