@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#fafafa</color>
-    <color name="colorPrimaryDark">#fafafa</color>
-    <color name="colorAccent">#04c9f9</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#3475fe</color>
+
+    <color name="white">#ffffff</color>
+    <color name="blank">#000000</color>
 
     <color name="input_bg">#f2f3f7</color>
     <color name="input_hint">#b0b2bf</color>
+    <color name="home_nav_gray">#96979b</color>
+
+    <!-- 配色 -->
+    <color name="yellow">#F6C758</color>
+    <color name="green">#2FA190</color>
+    <color name="blue">#3475fe</color>
+    <color name="purple">#6C7AE5</color>
+    <color name="origin">#FFAF45</color>
+
+    <!--QCCode相关-->
+    <color name="view_mask">#60000000</color>
+
 </resources>

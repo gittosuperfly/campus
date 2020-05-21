@@ -8,7 +8,7 @@ import java.util.List;
  * (GroupAccount)表数据库访问层
  *
  * @author makejava
- * @since 2020-04-28 23:57:08
+ * @since 2020-05-12 15:40:31
  */
 public interface GroupAccountDao {
 

@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //Api权限验证拦截器
-        registry.addInterceptor(new AuthInspectInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new AuthInspectInterceptor()).addPathPatterns("/**");
     }
 
 }

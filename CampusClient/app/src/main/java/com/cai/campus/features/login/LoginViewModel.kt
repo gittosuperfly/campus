@@ -22,9 +22,6 @@ class LoginViewModel : ViewModel() {
     private val _apiData = MutableLiveData<Response<String?>>()
     val apiData: LiveData<Response<String?>> = _apiData
 
-    private val phone = MutableLiveData<String>()
-    private val password = MutableLiveData<String>()
-
     fun login(phone: String, password: String) {
         viewModelScope.launch {
 
@@ -41,6 +38,7 @@ class LoginViewModel : ViewModel() {
 
 
     fun isGoHome(): Boolean {
-        return appRepo.isLogin
+//        return appRepo.isLogin
+        return false
     }
 }

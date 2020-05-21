@@ -6,20 +6,50 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context=".features.MainActivity">
+    tools:context=".features.TestActivity">
 
     <Button
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="home" />
+        android:text="首页" />
 
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="login" />
+        android:text="登录" />
+
+    <Button
+        android:id="@+id/getQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="二维码生成" />
+
+    <Button
+        android:id="@+id/scanQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="二维码扫描" />
+
+
+    <TextView
+        android:id="@+id/codeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/imageTest"
+        android:text="图片裁剪"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/myImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>

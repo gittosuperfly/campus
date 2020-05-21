@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:name=".app.BaseApplication"
@@ -19,18 +22,30 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".features.home.HomeActivity" />
-        <activity android:name=".features.login.SignUpOrFindActivity" />
-        <activity android:name=".features.login.LoginActivity" />
+        <activity android:name=".features.group.CreateGroupActivity"></activity>
         <activity
-            android:name=".features.MainActivity"
+            android:name=".features.TestActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- AndroidAutoSize基准 -->
+        </activity>
+        <activity
+            android:name=".features.main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.login.SignUpOrFindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".common.code.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+
         <meta-data
             android:name="design_width_in_dp"
             android:value="360" />
