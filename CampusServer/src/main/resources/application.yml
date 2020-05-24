@@ -18,7 +18,7 @@ spring:
     # mac上密码用这个.因为要兼容kwik-server项目数据库
     password: gr032616
     # Windows和AliyunServer(上线)密码用这个
-#    password: caiyufei
+    # password: caiyufei
 mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.cai.campusl

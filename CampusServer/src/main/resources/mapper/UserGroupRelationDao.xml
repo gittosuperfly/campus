@@ -17,6 +17,12 @@
         where id = #{id}
     </select>
 
+    <select id="queryUserIsEmptyGroup" resultMap="UserGroupRelationMap">
+        select id, uid, group_id, status
+        from campus.user_group_relation
+         where uid = #{uid} and group_id = #{groupId}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserGroupRelationMap">
         select
@@ -28,7 +34,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserGroupRelationMap">
         select
-          id, uid, group_id, status
+        id, uid, group_id, status
         from campus.user_group_relation
         <where>
             <if test="id != null">
@@ -72,6 +78,11 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from campus.user_group_relation where id = #{id}
+    </delete>
+
+    <!--通过主键删除-->
+    <delete id="deleteByGroupId">
+        delete from campus.user_group_relation where group_id = #{groupId}
     </delete>
 
 </mapper>

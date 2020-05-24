@@ -31,7 +31,7 @@ public class UserController {
      * @param password 密码
      * @return message
      */
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<Null> loginApi(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password) {

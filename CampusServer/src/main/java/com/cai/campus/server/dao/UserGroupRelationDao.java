@@ -2,6 +2,7 @@ package com.cai.campus.server.dao;
 
 import com.cai.campus.server.entity.UserGroupRelation;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -20,11 +21,13 @@ public interface UserGroupRelationDao {
      */
     UserGroupRelation queryById(Integer id);
 
+    UserGroupRelation queryUserIsEmptyGroup(Integer uid,Integer groupId);
+
     /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param limit  查询条数
      * @return 对象列表
      */
     List<UserGroupRelation> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
@@ -58,8 +61,15 @@ public interface UserGroupRelationDao {
      * 通过主键删除数据
      *
      * @param id 主键
-     * @return 影响行数
      */
-    int deleteById(Integer id);
+    void deleteById(Integer id);
+
+    /**
+     * 通过groupId删除数据
+     *
+     * @param groupId 群id
+     */
+    void deleteByGroupId(Integer groupId);
+
 
 }
