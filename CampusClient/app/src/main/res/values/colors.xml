@@ -18,6 +18,11 @@
     <color name="purple">#6C7AE5</color>
     <color name="origin">#FFAF45</color>
 
+    <color name="light_blue">#0080ff</color>
+    <color name="light_yellow">#ffdd20</color>
+
+    <color name="line">#c0c4cc</color>
+
     <!--QCCode相关-->
     <color name="view_mask">#60000000</color>
 

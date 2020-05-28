@@ -1,27 +1,27 @@
 package com.cai.campus.server.entity;
 
 public class GroupUser {
-    private Integer state;
-    private UserAccount account;
+    private Integer status;
+    private UserAccount userInfo;
 
-    public GroupUser(Integer state, UserAccount account) {
-        this.state = state;
-        this.account = account;
+    public GroupUser(Integer status, UserAccount userInfo) {
+        this.status = status;
+        this.userInfo = userInfo;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer state) {
+        this.status = state;
     }
 
     public UserAccount getAccount() {
-        return account;
+        return userInfo;
     }
 
     public void setAccount(UserAccount account) {
-        this.account = account;
+        this.userInfo = account;
     }
 }

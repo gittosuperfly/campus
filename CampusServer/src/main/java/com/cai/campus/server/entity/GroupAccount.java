@@ -13,7 +13,7 @@ public class GroupAccount implements Serializable {
     
     private Integer groupId;
     
-    private Integer createTime;
+    private Long createTime;
     
     private String name;
     
@@ -28,11 +28,11 @@ public class GroupAccount implements Serializable {
         this.groupId = groupId;
     }
 
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

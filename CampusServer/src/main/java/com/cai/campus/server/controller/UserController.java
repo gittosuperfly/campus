@@ -29,7 +29,6 @@ public class UserController {
      *
      * @param phone    手机号
      * @param password 密码
-     * @return message
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<Null> loginApi(
@@ -50,7 +49,6 @@ public class UserController {
      *
      * @param phone    手机号
      * @param password 密码
-     * @return message
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public Response<Null> registerUserApi(
@@ -70,16 +68,15 @@ public class UserController {
      *
      * @param phone    手机号
      * @param password 新密码
-     * @return
      */
     @RequestMapping(value = "resetPassword", method = RequestMethod.POST)
     public Response<Null> resetPasswordApi(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password) {
         UserAccount user = service.queryByPhone(phone);
-        if (user == null){
+        if (user == null) {
             return Response.get(ResultCode.BAD_REQUEST, "手机号不存在");
-        }else {
+        } else {
             user.setPassword(password);
             service.update(user);
             return Response.get(ResultCode.SUCCESS, "修改成功");
@@ -92,7 +89,6 @@ public class UserController {
      *
      * @param type  类型 type {id, phone}
      * @param value 值
-     * @return 单条数据
      */
     @RequestMapping(value = "query/{type}", method = RequestMethod.POST)
     public Response<UserAccount> queryUserApi(
@@ -111,7 +107,6 @@ public class UserController {
      * 修改用户信息
      *
      * @param user 修改后的值 { TODO 必须传来完整的用户数据，缺失将按null来处理。必须携带id、phone、password }
-     * @return message
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Response<Null> updateUserApi(@RequestBody UserAccount user) {

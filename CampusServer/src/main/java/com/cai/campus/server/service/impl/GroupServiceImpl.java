@@ -34,9 +34,17 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupAccount createGroup(GroupAccount group) {
+    public Response<Null> createGroup(String groupName, int creatorUid) {
+        GroupAccount group = new GroupAccount();
+        group.setName(groupName);
+        group.setCreateTime(System.currentTimeMillis());
         groupDao.insert(group);
-        return group;
+        UserGroupRelation relation = new UserGroupRelation();
+        relation.setGroupId(group.getGroupId());
+        relation.setUid(creatorUid);
+        relation.setStatus(UserGroupRelation.STATUS.LEADER);
+        relationDao.insert(relation);
+        return Response.get(ResultCode.SUCCESS, "建群成功");
     }
 
     @Override
@@ -46,13 +54,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean deleteGroup(Integer groupId) {
+    public Response<Null> deleteGroup(Integer groupId) {
         if (groupDao.queryById(groupId) != null) {
             relationDao.deleteByGroupId(groupId);
             groupDao.deleteById(groupId);
-            return true;
+            return Response.get(ResultCode.SUCCESS, "删除成功");
         } else {
-            return false;
+            return Response.get(ResultCode.BAD_REQUEST, "删除失败，groupId不存在");
         }
     }
 

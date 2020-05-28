@@ -23,24 +23,17 @@ public class GroupController {
     private GroupService service;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    private Response<GroupAccount> createGroupApi(
-            @RequestParam("createTime") Integer time,
-            @RequestParam("groupName") String name
+    private Response<Null> createGroupApi(
+            @RequestParam("groupName") String name,
+            @RequestParam("creatorUid") Integer uid
     ) {
-        GroupAccount account = new GroupAccount();
-        account.setCreateTime(time);
-        account.setName(name);
-        return Response.get(ResultCode.SUCCESS, "创建成功", this.service.createGroup(account));
+        return this.service.createGroup(name, uid);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     private Response<Null> deleteGroupApi(
             @RequestParam("groupId") Integer gid) {
-        if (this.service.deleteGroup(gid)) {
-            return Response.get(ResultCode.SUCCESS, "删除成功");
-        } else {
-            return Response.get(ResultCode.BAD_REQUEST, "删除失败，groupId不存在");
-        }
+        return this.service.deleteGroup(gid);
     }
 
     @RequestMapping(value = "queryById", method = RequestMethod.POST)

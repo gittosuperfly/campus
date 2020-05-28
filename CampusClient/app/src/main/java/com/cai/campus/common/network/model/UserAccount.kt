@@ -19,7 +19,12 @@ class UserAccount : Serializable {
     var introduction: String? = null
     var email: String? = null
 
+
     companion object {
         private const val serialVersionUID = 573386372958693835L
+    }
+
+    override fun toString(): String {
+        return "UserAccount(uid=$uid, phone=$phone, password=$password, name=$name, sex=$sex, logo=$logo, birthday=$birthday, introduction=$introduction, email=$email)"
     }
 }

@@ -1,5 +1,6 @@
 package com.cai.campus.common.repository.repo
 
+import com.cai.campus.common.network.model.UserAccount
 import com.cai.campus.common.repository.preference.PreferenceRename
 import com.cai.campus.common.repository.preference.PreferenceSupport
 
@@ -7,4 +8,5 @@ import com.cai.campus.common.repository.preference.PreferenceSupport
 class AppData : PreferenceSupport() {
     var isLogin: Boolean = false
     var lastLoginPhone: String = ""
+    lateinit var lastLoginUser: UserAccount
 }

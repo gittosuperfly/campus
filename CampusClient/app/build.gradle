@@ -28,12 +28,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+            outputFileName = "campus_${date}_${versionName}.apk"
+        }
+    }
     compileOptions {
         sourceCompatibility "1.8"
         targetCompatibility "1.8"
-    }
-    dataBinding {
-        enabled = true
     }
     MobSDK {
         appKey "2e6b695015e6c"
@@ -100,6 +103,8 @@ dependencies {
     implementation 'com.github.allan1st:JellyRefreshLayout:2.0'
     //图片选择裁剪
     implementation 'com.github.wildma:PictureSelector:2.0.0'
+    //选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
 
 }

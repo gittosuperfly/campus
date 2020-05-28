@@ -7,6 +7,9 @@ object RouterPath {
     const val HOME_PAGE = "/app/home"
     const val SCAN_QR_CODE = "/app/util/scan"
 
+    //user
+    const val UPDATE_USER = "/app/user/update"
+
     //group
-    const val CREATE_GROUP = "app/group/create"
+    const val GROUP_DETAIL = "/app/group/detail"
 }

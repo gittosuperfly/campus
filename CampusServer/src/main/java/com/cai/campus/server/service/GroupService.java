@@ -3,9 +3,6 @@ package com.cai.campus.server.service;
 import com.cai.campus.model.Response;
 import com.cai.campus.server.entity.GroupAccount;
 import com.cai.campus.server.entity.GroupUser;
-import com.cai.campus.server.entity.UserAccount;
-import com.cai.campus.server.entity.UserGroupRelation;
-import org.apache.catalina.User;
 
 import javax.validation.constraints.Null;
 import java.util.List;
@@ -19,8 +16,9 @@ public interface GroupService {
 
     /**
      * 建群
+     * @return
      */
-    GroupAccount createGroup(GroupAccount group);
+    Response<Null> createGroup(String groupName,int creatorUid);
 
     /**
      * 修改群信息
@@ -30,7 +28,7 @@ public interface GroupService {
     /**
      * 解散群
      */
-    boolean deleteGroup(Integer groupId);
+    Response<Null> deleteGroup(Integer groupId);
 
 
     /**

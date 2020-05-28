@@ -84,21 +84,34 @@
 
     </LinearLayout>
 
-
-    <uk.co.imallan.jellyrefresh.JellyRefreshLayout
-        android:id="@+id/refreshLayout"
+    <RelativeLayout
+        android:id="@+id/noDataImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:headerHeight="30dp"
-        app:jellyColor="@color/input_bg"
-        app:pullHeight="90dp"
-        app:triggerHeight="60dp">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
+        <ImageView
+            android:id="@+id/nullDataImg"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nullDataImg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="暂无数据" />
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

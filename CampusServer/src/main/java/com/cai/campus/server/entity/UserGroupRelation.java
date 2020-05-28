@@ -52,4 +52,10 @@ public class UserGroupRelation implements Serializable {
         this.status = status;
     }
 
+    public static final class STATUS{
+        public static int MEMBER = 0;
+        public static int ADMIN = 1;
+        public static int LEADER = 2;
+    }
+
 }

@@ -4,23 +4,7 @@ import com.cai.campus.common.network.model.Response
 import com.cai.campus.common.network.model.UserAccount
 import retrofit2.http.*
 
-interface LoginApiServer {
-
-    /**
-     * 使用协程进行网络请求
-     */
-
-    @POST("/push")
-    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    suspend fun pushTest(): Response<String?>
-
-    @POST("/test")
-    @FormUrlEncoded
-    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    suspend fun test(
-        @Field("value") value: Int
-    ): Response<Test>
-
+interface UserApiServer {
 
     @POST("/api/user/login")
     @FormUrlEncoded
@@ -54,10 +38,9 @@ interface LoginApiServer {
         @Field("value") password: String
     ): Response<UserAccount?>
 
+    @POST("/api/user/update")
+    suspend fun updateUser(
+        @Body user: UserAccount
+    ): Response<UserAccount?>
 
-}
-
-class Test() {
-    val message: String? = ""
-    val code: Int? = 1
 }

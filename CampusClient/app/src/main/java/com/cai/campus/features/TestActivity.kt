@@ -77,19 +77,6 @@ class TestActivity : AppCompatActivity() {
                 Prompt.show("DATA = NULL")
             }
         }
-
-        if (requestCode === PictureSelector.SELECT_REQUEST_CODE) {
-            if (data != null) {
-                val pictureBean: PictureBean =
-                    data.getParcelableExtra(PictureSelector.PICTURE_RESULT)
-                FileUtils.deleteAllCacheImage(this);
-
-                //使用 Glide 加载图片
-                Glide.with(this)
-                    .load(if (pictureBean.isCut) pictureBean.path else pictureBean.uri)
-                    .apply(RequestOptions.centerCropTransform()).into(myImage)
-            }
-        }
     }
 
     companion object {

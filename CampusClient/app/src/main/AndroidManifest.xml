@@ -22,25 +22,32 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".features.group.CreateGroupActivity"></activity>
+        <activity
+            android:name=".features.user.UserUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.GroupDetailActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".features.TestActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.main.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".features.login.SignUpOrFindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.login.LoginActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".features.main.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".features.login.SignUpOrFindActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".features.login.LoginActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".common.code.CaptureActivity"
             android:screenOrientation="portrait"

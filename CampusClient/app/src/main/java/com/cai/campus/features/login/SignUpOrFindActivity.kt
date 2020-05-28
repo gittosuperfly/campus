@@ -3,6 +3,7 @@ package com.cai.campus.features.login
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -115,12 +116,12 @@ class SignUpOrFindActivity : BaseActivity() {
     private fun countdown() {
         isCountdown = true
         Countdown.start(60L, {
-            if (getCodeBtn != null) {
-                getCodeBtn.text = "请稍后:$it"
-            }
+            getCodeBtn.text = "请稍后:$it"
+            phoneEdit.isEnabled = false
         }, {
             isCountdown = false
             getCodeBtn.text = "获取验证码"
+            phoneEdit.isEnabled = true
         })
     }
 
