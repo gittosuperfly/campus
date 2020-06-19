@@ -1,7 +1,9 @@
 package com.cai.campus.features.login
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,27 +13,24 @@ import com.cai.campus.R
 import com.cai.campus.app.BaseActivity
 import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Prompt
+import com.mob.pushsdk.MobPushNotifyMessage
 import kotlinx.android.synthetic.main.login_activity.*
+import kotlin.math.log
 
 
 @Route(path = RouterPath.LOGIN_PAGE)
 class LoginActivity : BaseActivity() {
 
     private lateinit var viewModel: LoginViewModel
-
     private var loginBtnState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initActivity(this,R.layout.login_activity)
+        initActivity(this, R.layout.login_activity)
     }
 
     override fun init() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        if (viewModel.isGoHome()) {
-            ARouter.getInstance().build(RouterPath.HOME_PAGE).navigation()
-            finish()
-        }
         subscribeViewEvent()
         setViewClickListener()
         setViewAnimation()
@@ -46,6 +45,7 @@ class LoginActivity : BaseActivity() {
             }
         })
     }
+
 
     /* 设置页面点击事件 */
     private fun setViewClickListener() {
@@ -107,6 +107,7 @@ class LoginActivity : BaseActivity() {
     }
 
 
+    /* 设置登录按钮状态 */
     private fun changeLoginBtnBackground() {
         if (phoneEdit.text.isNotEmpty() && passwordEdit.text.isNotEmpty()) {
             if (!loginBtnState) {

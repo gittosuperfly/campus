@@ -1,11 +1,9 @@
 package com.cai.campus.common.push
 
 import android.content.Context
-import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import com.alibaba.android.arouter.launcher.ARouter
-import com.cai.campus.app.BaseApplication
+import com.cai.campus.common.router.RouterPath
 import com.mob.pushsdk.MobPush
 import com.mob.pushsdk.MobPushCustomMessage
 import com.mob.pushsdk.MobPushNotifyMessage
@@ -31,7 +29,7 @@ class PushManager(action: PushAction) {
                 context: Context,
                 message: MobPushNotifyMessage
             ) {
-                Log.d("caicai", Looper.getMainLooper().thread.name + "   " + message.content)
+                Log.d("PushManager", message.toString())
 
             }
 
@@ -40,7 +38,6 @@ class PushManager(action: PushAction) {
                 context: Context,
                 message: MobPushNotifyMessage
             ) {
-
             }
 
             //接收tags的增改删查操作
@@ -50,7 +47,10 @@ class PushManager(action: PushAction) {
                 operation: Int,
                 errorCode: Int
             ) {
-
+                Log.d("PushManager", "====== 用户分组 ======")
+                for (tag in tags) {
+                    Log.d("PushManager", "ID: $tag")
+                }
             }
 
             //接收alias的增改删查操作
@@ -67,16 +67,19 @@ class PushManager(action: PushAction) {
 
     companion object {
         //以手机号作为别名，用于1v1推送 重复设置会覆盖之前的
+        @JvmStatic
         fun setPhone(phone: String) {
             MobPush.setAlias(phone)
         }
 
         //以群组作为Tag，用于群组内推送
-        fun addGroup(groups: Array<String>) {
+        @JvmStatic
+        fun addGroup(groups: Array<String?>) {
             MobPush.addTags(groups)
         }
 
         //退出群组时删除标签
+        @JvmStatic
         fun removeGroup(groups: Array<String>) {
             MobPush.deleteTags(groups)
         }

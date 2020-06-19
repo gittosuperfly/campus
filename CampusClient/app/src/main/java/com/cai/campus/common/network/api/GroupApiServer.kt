@@ -19,6 +19,13 @@ interface GroupApiServer {
         @Field("creatorUid") creatorUid: Int
     ): Response<String?>
 
+    @POST("/api/group/delete")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun deleteGroup(
+        @Field("groupId") groupId: Int
+    ): Response<String?>
+
     @POST("/api/group/addGroup")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
@@ -42,5 +49,35 @@ interface GroupApiServer {
     suspend fun queryGroupAllUser(
         @Field("groupId") groupId: Int
     ): Response<List<GroupUser>>
+
+
+    @POST("/api/group/quitGroup")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun quitGroup(
+        @Field("userId") userId: Int,
+        @Field("groupId") groupId: Int
+    ): Response<String?>
+
+
+    @POST("/api/group/setGroupAdmin")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun setGroupAdmin(
+        @Field("groupId") groupId: Int,
+        @Field("userId") userId: Int,
+        @Field("status") status: Int
+    ): Response<String?>
+
+
+    @POST("/api/group/quitGroup")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun transferGroup(
+        @Field("groupId") groupId: Int,
+        @Field("oldUserId") oldUserId: Int,
+        @Field("newUserId") newUserId: Int
+    ): Response<String?>
+
 
 }

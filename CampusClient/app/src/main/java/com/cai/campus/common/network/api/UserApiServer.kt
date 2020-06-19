@@ -19,7 +19,8 @@ interface UserApiServer {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     suspend fun userRegister(
         @Field("phone") phone: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("UUID") UUID: String
     ): Response<String?>
 
     @POST("/api/user/resetPassword")

@@ -1,7 +1,7 @@
 package com.cai.campus.server.controller;
 
 
-import com.cai.campus.model.Response;
+import com.cai.campus.model.WebApiResponse;
 import com.cai.campus.model.ResultCode;
 import com.cai.campus.server.entity.GroupAccount;
 import com.cai.campus.server.entity.GroupUser;
@@ -23,7 +23,7 @@ public class GroupController {
     private GroupService service;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    private Response<Null> createGroupApi(
+    private WebApiResponse<Null> createGroupApi(
             @RequestParam("groupName") String name,
             @RequestParam("creatorUid") Integer uid
     ) {
@@ -31,19 +31,19 @@ public class GroupController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    private Response<Null> deleteGroupApi(
+    private WebApiResponse<Null> deleteGroupApi(
             @RequestParam("groupId") Integer gid) {
         return this.service.deleteGroup(gid);
     }
 
     @RequestMapping(value = "queryById", method = RequestMethod.POST)
-    private Response<GroupAccount> queryGroupApi(
+    private WebApiResponse<GroupAccount> queryGroupApi(
             @RequestParam("groupId") Integer gid) {
-        return Response.get(ResultCode.SUCCESS, "查询成功", this.service.getGroupById(gid));
+        return WebApiResponse.get(ResultCode.SUCCESS, "查询成功", this.service.getGroupById(gid));
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    private Response<GroupAccount> updateGroupApi(
+    private WebApiResponse<GroupAccount> updateGroupApi(
             @RequestParam("groupId") Integer gid,
             @RequestParam("updateType") String type,
             @RequestParam("updateValue") String value
@@ -55,9 +55,9 @@ public class GroupController {
         } else if (type.equals("logo")) {
             group.setLogo(value);
         } else {
-            Response.get(ResultCode.BAD_REQUEST, "参数type错误", null);
+            WebApiResponse.get(ResultCode.BAD_REQUEST, "参数type错误", null);
         }
-        return Response.get(ResultCode.SUCCESS, "修改成功", this.service.updateGroup(group));
+        return WebApiResponse.get(ResultCode.SUCCESS, "修改成功", this.service.updateGroup(group));
     }
 
     //TODO ==================================================================
@@ -65,7 +65,7 @@ public class GroupController {
     //TODO ==================================================================
 
     @RequestMapping(value = "addGroup", method = RequestMethod.POST)
-    private Response<Null> userAddGroupApi(
+    private WebApiResponse<Null> userAddGroupApi(
             @RequestParam("userId") Integer uid,
             @RequestParam("groupId") Integer gid
     ) {
@@ -73,7 +73,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "quitGroup", method = RequestMethod.POST)
-    private Response<Null> userQuitGroupApi(
+    private WebApiResponse<Null> userQuitGroupApi(
             @RequestParam("userId") Integer uid,
             @RequestParam("groupId") Integer gid
     ) {
@@ -81,16 +81,34 @@ public class GroupController {
     }
 
     @RequestMapping(value = "queryUserAllGroup", method = RequestMethod.POST)
-    private Response<List<GroupAccount>> queryUserAllGroupApi(
+    private WebApiResponse<List<GroupAccount>> queryUserAllGroupApi(
             @RequestParam("userId") Integer uid
     ) {
         return service.queryUserAllGroup(uid);
     }
 
     @RequestMapping(value = "queryGroupAllUser", method = RequestMethod.POST)
-    private Response<List<GroupUser>> queryGroupAllUserApi(
+    private WebApiResponse<List<GroupUser>> queryGroupAllUserApi(
             @RequestParam("groupId") Integer groupId
     ) {
         return service.queryGroupAllUser(groupId);
+    }
+
+    @RequestMapping(value = "setGroupAdmin", method = RequestMethod.POST)
+    private WebApiResponse<Null> setGroupAdminApi(
+            @RequestParam("groupId") Integer groupId,
+            @RequestParam("userId") Integer userId,
+            @RequestParam("status") Integer status
+    ) {
+        return service.setGroupAdmin(groupId, userId, status);
+    }
+
+    @RequestMapping(value = "transferGroup", method = RequestMethod.POST)
+    private WebApiResponse<Null> transferGroupApi(
+            @RequestParam("groupId") Integer groupId,
+            @RequestParam("oldUserId") Integer oldUserId,
+            @RequestParam("newUserId") Integer newUserId
+    ) {
+        return service.transferGroup(groupId, oldUserId, newUserId);
     }
 }

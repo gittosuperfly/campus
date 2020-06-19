@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cai.campus">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,6 +15,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:name=".app.BaseApplication"
@@ -22,36 +31,51 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity
-            android:name=".features.user.UserUpdateActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".features.group.GroupDetailActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".features.message.notice.NoticeDetailActivity"></activity>
+        <activity android:name=".features.group.signIn.census.UserSignInSummaryActivity" />
+
+        <service android:name="com.amap.api.location.APSService" />
 
         <activity
-            android:name=".features.TestActivity"
+            android:name=".features.message.signIn.UserSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.signIn.census.SignInDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.signIn.census.SignInListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.notice.SendNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.signIn.release.ReleaseSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.user.update.UserUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.group.detail.GroupDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.login.signUpOrFind.SignUpOrFindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".common.code.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".features.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".features.main.MainActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".features.login.SignUpOrFindActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".features.login.LoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".common.code.CaptureActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" />
 
         <meta-data
             android:name="design_width_in_dp"
@@ -59,6 +83,9 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="61192e98abe1fb1da2f20335d69f332f" />
     </application>
 
 </manifest>

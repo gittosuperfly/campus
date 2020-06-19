@@ -1,6 +1,9 @@
 package com.cai.campus.server.service;
 
+import com.cai.campus.model.WebApiResponse;
 import com.cai.campus.server.entity.UserAccount;
+
+import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
@@ -39,11 +42,9 @@ public interface UserService {
 
     /**
      * 新增数据
-     *
-     * @param userAccount 实例对象
-     * @return 实例对象
+     ** @return 实例对象
      */
-    UserAccount insert(UserAccount userAccount);
+    WebApiResponse<Null> insert(String phone, String password, String UUID);
 
     /**
      * 修改数据

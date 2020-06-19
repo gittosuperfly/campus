@@ -1,14 +1,21 @@
 package com.cai.campus.app
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import com.mob.tools.utils.ReflectHelper.getClass
 
-
+@SuppressLint("SetTextI18n")
 abstract class BaseActivity : AppCompatActivity() {
 
     fun initActivity(current: Activity, @LayoutRes layoutResID: Int) {
@@ -25,6 +32,10 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun init() {}
     open fun subscribeOnView() {}
 
+    override fun onDestroy() {
+        Log.d("ActivityLog", "<<< ${getRunningActivityName()}" )
+        super.onDestroy()
+    }
 
     /**
      * 设置一些扩展函数
@@ -43,6 +54,11 @@ abstract class BaseActivity : AppCompatActivity() {
                 body(s.toString())
             }
         })
+    }
+
+    private fun getRunningActivityName(): String {
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return activityManager.getRunningTasks(1)[0].topActivity!!.className
     }
 
 }

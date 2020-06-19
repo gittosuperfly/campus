@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.cai.campus.common.network.RetrofitFactory
 import com.cai.campus.common.network.api.UserApiServer
 import com.cai.campus.common.network.model.UserAccount
+import com.cai.campus.common.push.PushManager
 import com.cai.campus.common.repository.LocalRepoManager
 import com.cai.campus.common.repository.repo.AppData
 import com.cai.campus.common.utils.Prompt
@@ -30,10 +31,13 @@ class UserViewModel : ViewModel() {
             if (response.result == 1) {
                 localStorage.lastLoginUser = response.data!!
                 localStorage.apply()
+                response.data.phone?.let { PushManager.setPhone(it) }
 
                 val userInfo = localStorage.lastLoginUser
                 if (userInfo.name.isNullOrEmpty() || userInfo.name == "")
-                    userInfo.name = "未命名用户$userInfo.uid"
+                    userInfo.name = "未命名用户${userInfo.uid}"
+                if (userInfo.email.isNullOrEmpty() || userInfo.email == "")
+                    userInfo.email = "暂未设置邮箱"
                 _user.value = userInfo
             }
         }

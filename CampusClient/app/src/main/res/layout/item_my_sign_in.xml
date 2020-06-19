@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:paddingTop="7dp">
+
+    <TextView
+        android:id="@+id/detailTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:text="签到详情"
+        android:textColor="@color/text_blank_1"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/groupNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="25dp"
+        android:text="群名称"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailTv"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="2020.5.2 18:20:31 > 20分钟"
+        android:textColor="@color/text_blank_3" />
+
+    <View
+        android:id="@+id/isDoneFlag"
+        android:layout_width="8dp"
+        android:layout_height="15dp"
+        android:layout_below="@+id/timeTv"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/isDoneTv"
+        android:background="@color/red" />
+
+    <TextView
+        android:id="@+id/isDoneTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeTv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:text="已签到"
+        android:textColor="@color/text_blank_3"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeTv"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:text="当前状态:"
+        android:textColor="@color/text_blank_3"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/statusTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeTv"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/statusText"
+        android:text="status"
+        android:textSize="16sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:background="@color/line" />
+
+
+</RelativeLayout>

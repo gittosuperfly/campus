@@ -31,7 +31,7 @@
             android:layout_toEndOf="@+id/mainTopBarLogo"
             android:includeFontPadding="false"
             android:text="测试文字"
-            android:textColor="@color/blank"
+            android:textColor="@color/text_blank_1"
             android:textSize="22sp" />
 
         <ImageView
@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
         android:background="?android:attr/windowBackground"
         app:backgroundTint="@color/white"
         app:elevation="4dp"

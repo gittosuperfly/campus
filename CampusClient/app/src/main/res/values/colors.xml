@@ -6,22 +6,28 @@
 
     <color name="white">#ffffff</color>
     <color name="blank">#000000</color>
+    <color name="text_blank_1">#303133</color>
+    <color name="text_blank_2">#5f6166</color>
+    <color name="text_blank_3">#8f9299</color>
+    <color name="text_blank_4">#c0c4cc</color>
 
-    <color name="input_bg">#f2f3f7</color>
-    <color name="input_hint">#b0b2bf</color>
+    <color name="input_bg">#f2f6fc</color>
+    <color name="input_hint">#c0c4cc</color>
     <color name="home_nav_gray">#96979b</color>
 
     <!-- 配色 -->
+    <color name="red">#f56b6c</color>
     <color name="yellow">#F6C758</color>
-    <color name="green">#2FA190</color>
-    <color name="blue">#3475fe</color>
+    <color name="green">#66c33a</color>
+    <color name="blue">#0080ff</color>
     <color name="purple">#6C7AE5</color>
-    <color name="origin">#FFAF45</color>
+    <color name="origin">#e6a13c</color>
 
     <color name="light_blue">#0080ff</color>
     <color name="light_yellow">#ffdd20</color>
 
-    <color name="line">#c0c4cc</color>
+    <color name="line">#ebeef5</color>
+
 
     <!--QCCode相关-->
     <color name="view_mask">#60000000</color>

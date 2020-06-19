@@ -16,6 +16,8 @@ public class UserAccount implements Serializable {
     public UserAccount(String phone, String password) {
         this.phone = phone;
         this.password = password;
+        this.sex = 1; //默认为男性
+        this.birthday = 20200101;//默认生日2020年1月1日
     }
 
 

@@ -1,6 +1,6 @@
 package com.cai.campus.Interceptor;
 
-import com.cai.campus.model.Response;
+import com.cai.campus.model.WebApiResponse;
 import com.cai.campus.model.ResultCode;
 import com.google.gson.GsonBuilder;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +39,7 @@ public class AuthInspectInterceptor implements HandlerInterceptor {
                     .serializeNulls()
                     .setPrettyPrinting()
                     .create()
-                    .toJson(Response.get(ResultCode.UNAUTHORIZED, "未授权"));
+                    .toJson(WebApiResponse.get(ResultCode.UNAUTHORIZED, "未授权"));
             PrintWriter responseWriter = response.getWriter();
             responseWriter.write(responseData);
             responseWriter.flush();

@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:text="新建群组"
-                android:textColor="@color/blank"
+                android:textColor="@color/text_blank_1"
                 android:textSize="14dp" />
 
             <View
@@ -52,7 +52,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:text="加入群组"
-                android:textColor="@color/blank"
+                android:textColor="@color/text_blank_1"
                 android:textSize="14dp" />
 
             <View
@@ -64,23 +64,7 @@
                 android:background="@color/home_nav_gray" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/groupMessageTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:text="群组消息"
-                android:textColor="@color/blank"
-                android:textSize="14dp" />
-        </RelativeLayout>
 
     </LinearLayout>
 

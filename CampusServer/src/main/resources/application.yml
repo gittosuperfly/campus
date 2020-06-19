@@ -13,7 +13,8 @@ spring:
     pretty-printing: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/campus?useUnicode=true&characterEncoding=utf-8
+#    url: jdbc:mysql://localhost:3306/campus?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://120.55.44.23:3306/campus?useUnicode=true&characterEncoding=utf-8
     username: root
     # mac上密码用这个.因为要兼容kwik-server项目数据库
     # password: gr032616

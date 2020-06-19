@@ -1,10 +1,11 @@
 package com.cai.campus.app
 
-import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.common.push.PushAction
 import com.cai.campus.common.push.PushManager
+import com.cai.campus.common.utils.Location
 import com.mob.MobApplication
 
 class BaseApplication : MobApplication() {
@@ -18,12 +19,15 @@ class BaseApplication : MobApplication() {
         ARouter.init(this)
 
         PushManager(PushAction)
+
+        Location.load().location()
     }
 
     companion object {
 
         var context: Context? = null
 
+        @JvmStatic
         fun getAppContext(): Context {
             return context as Context
         }

@@ -1,6 +1,7 @@
 package com.cai.campus.common.utils
 
 import android.text.TextUtils
+import com.cai.campus.common.network.model.SignIn
 
 object Check {
     /**
@@ -12,11 +13,29 @@ object Check {
      * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
      */
     fun isMobileNum(number: String): Boolean {
-        val num = "[1][3578]\\d{9}"
+        val regex = "[1][3578]\\d{9}"
         return if (TextUtils.isEmpty(number)) {
             false
         } else {
-            number.matches(Regex(num))
+            number.matches(Regex(regex))
         }
     }
+
+    fun isOkQRCode(value: String): Boolean {
+        val regex = Regex("""\{"handlerType":[0-9][0-9]*,"value":[0-9][0-9]*\}""")
+        return value.matches(regex)
+    }
+
+    fun getSignInStatus(data: SignIn): Int {
+        val timestamp = System.currentTimeMillis() / 1000
+        return when {
+            timestamp < data.createTime!! -> SIGN_IN_STATUS_READY
+            timestamp > data.endTime!! -> SIGN_IN_STATUS_END
+            else -> SIGN_IN_STATUS_GOING
+        }
+    }
+
+    const val SIGN_IN_STATUS_READY = 0
+    const val SIGN_IN_STATUS_GOING = 1
+    const val SIGN_IN_STATUS_END = 2
 }

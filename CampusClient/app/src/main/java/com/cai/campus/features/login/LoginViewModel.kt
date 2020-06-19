@@ -8,8 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.cai.campus.common.network.RetrofitFactory
 import com.cai.campus.common.network.api.UserApiServer
 import com.cai.campus.common.network.model.Response
+import com.cai.campus.common.push.PushManager
 import com.cai.campus.common.repository.LocalRepoManager
 import com.cai.campus.common.repository.repo.AppData
+import com.cai.campus.common.utils.Prompt
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
@@ -22,32 +24,18 @@ class LoginViewModel : ViewModel() {
 
     fun login(phone: String, password: String) {
         viewModelScope.launch {
-
             val data = api.userLogin(phone, password)
-            _apiData.value = data
-
+            Prompt.show(data.message)
             if (data.result == 1) {
+                //登录成功后存储用户信息
+                val response = api.queryUser("phone", phone)
                 localStorage.isLogin = true
-                localStorage.lastLoginPhone = phone
+                localStorage.lastLoginUser = response.data!!
                 localStorage.apply()
-                getUser()
+                //设置推送Phone
+                PushManager.setPhone(phone)
+                _apiData.value = data
             }
         }
-    }
-
-    private fun getUser() {
-        viewModelScope.launch {
-            val data = api.queryUser("phone", localStorage.lastLoginPhone)
-            if (data.result == 1) {
-                localStorage.lastLoginUser = data.data!!
-                localStorage.apply()
-            }
-        }
-    }
-
-
-    fun isGoHome(): Boolean {
-        return localStorage.isLogin
-//        return false
     }
 }

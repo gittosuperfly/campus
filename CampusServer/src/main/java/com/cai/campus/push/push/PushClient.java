@@ -29,7 +29,7 @@ public class PushClient {
 	 * @throws ApiException
 	 */
 	public String createPushDefaultNotify(String workno, String content) throws ApiException {
-		PushWork work = new PushWork(MobPushConfig.appkey, workno, PlatEnum.all.getCode(), content, PushTypeEnum.notify.getCode()).buildTarget(TargetEnum._1.getCode(), null, null, null, null, null);
+		PushWork work = new PushWork(MobPushConfig.appkey, workno, PlatEnum.all.getCode(), content, PushTypeEnum.notify.getCode()).buildTarget(TargetEnum.ALL.getCode(), null, null, null, null, null);
 		return this.sendPush(work);
 	}
 	
@@ -41,7 +41,7 @@ public class PushClient {
 	 * @throws ApiException
 	 */
 	public String createPushByDefaultCustom(String workno, String content) throws ApiException{ 
-		PushWork work = new PushWork(MobPushConfig.appkey, workno, PlatEnum.all.getCode(), content, PushTypeEnum.custom.getCode()).buildTarget(TargetEnum._1.getCode(), null, null, null, null, null); 
+		PushWork work = new PushWork(MobPushConfig.appkey, workno, PlatEnum.all.getCode(), content, PushTypeEnum.custom.getCode()).buildTarget(TargetEnum.ALL.getCode(), null, null, null, null, null);
   		return this.sendPush(work);
 	}
 	  

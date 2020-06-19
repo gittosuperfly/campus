@@ -14,4 +14,5 @@
     <string name="viewfinderview_status_text2">即可自动扫描</string>
     <string name="nameHint">用户名</string>
     <string name="emailHint">电子邮箱</string>
+    <string name="hint_intro">用户简介</string>
 </resources>

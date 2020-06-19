@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.R
+import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Prompt
 import com.cai.campus.features.group.adapter.GroupRecyclerAdapter
@@ -42,11 +43,17 @@ class GroupFragment : Fragment() {
                 LayoutInflater.from(context).inflate(R.layout.edit_dialog_layout, null)
             val edit = content.findViewById<EditText>(R.id.dialogEdit)
             edit.hint = "请输入群名称"
-            AlertDialog.Builder(activity).setTitle("创建群组").setView(content).setPositiveButton(
-                "确定"
-            ) { _, _ -> //按下确定键后的事件
-                viewModel.createGroup(edit.text.toString())
-            }.setNegativeButton("取消", null).show()
+            val builder =
+                AlertDialog.Builder(activity)
+                    .setTitle("创建群组")
+                    .setView(content).setPositiveButton(
+                        "确定"
+                    ) { _, _ -> //按下确定键后的事件
+                        viewModel.createGroup(edit.text.toString())
+                    }.setNegativeButton("取消", null)
+            val dialog = builder.create()
+            dialog.show()
+            dialogCenter(dialog)
         }
 
         addGroupTv.setOnClickListener {
@@ -54,12 +61,18 @@ class GroupFragment : Fragment() {
                 LayoutInflater.from(context).inflate(R.layout.edit_dialog_layout, null)
             val edit = content.findViewById<EditText>(R.id.dialogEdit)
             edit.hint = "请输入群ID"
-            val dialog = AlertDialog.Builder(activity)
-            dialog.setTitle("加入群组").setView(content).setPositiveButton(
-                "确定"
-            ) { _, _ -> //按下确定键后的事件
-                viewModel.addGroup(edit.text.toString().toInt())
-            }.setNegativeButton("取消", null).show()
+            val bundle =
+                AlertDialog.Builder(activity)
+                    .setTitle("加入群组")
+                    .setView(content).setPositiveButton(
+                        "确定"
+                    ) { _, _ -> //按下确定键后的事件
+                        viewModel.addGroup(edit.text.toString().toInt())
+                    }.setNegativeButton("取消", null)
+
+            val dialog = bundle.create()
+            dialog.show()
+            dialogCenter(dialog)
         }
 
 
@@ -68,21 +81,26 @@ class GroupFragment : Fragment() {
         groupRecyclerView.adapter = groupAdapter
 
         viewModel.groupList.observe(this.viewLifecycleOwner, Observer {
-
-            if (it.isEmpty()) {
-                noDataImage.visibility = View.VISIBLE
-            }
-
+            noDataImage.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            groupAdapter.refresh(it)
             groupAdapter.setOnItemClickListner { _, position ->
-                Prompt.show(it[position].name)
                 ARouter.getInstance()
                     .build(RouterPath.GROUP_DETAIL)
-                    .withSerializable("group", it[position]!!)
+                    .withSerializable(ExtraKey.GROUP_DETAIL_VALUE, it[position])
                     .navigation()
             }
-            groupAdapter.refresh(it)
         })
 
     }
 
+
+    private fun dialogCenter(dialog: AlertDialog) {
+        val dialogWindow = dialog.window
+        val m = activity!!.windowManager
+        val d = m.defaultDisplay
+        val p = dialogWindow!!.attributes
+        p.width = (d.width * 0.95).toInt()
+        p.gravity = Gravity.CENTER
+        dialogWindow.attributes = p
+    }
 }

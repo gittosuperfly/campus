@@ -18,42 +18,33 @@ class UserGridRecyclerAdapter constructor(data: List<GroupUser>) :
         val userName = holder?.getView(R.id.userName) as TextView
         val userLogo = holder.getView(R.id.userLogo) as ImageView
 
-//        if (position < 9) {
+        val flag2 = holder.getView(R.id.leaderFlag) as View
+        val flag1 = holder.getView(R.id.adminFlag) as View
+
         setItemImageDrawable(
             userLogo,
             if (data.userInfo.sex == 1) DefaultLogo.boyLogoResId else DefaultLogo.girlLogoResId
         )
 
-        if (data.userInfo.name.isNullOrEmpty() || data.userInfo.name == "") {
-            userName.text = "未命名用户${data.userInfo.uid}"
-        } else {
-            userName.text = data.userInfo.name
-        }
+        userName.text =
+            if (data.userInfo.name.isNullOrEmpty() || data.userInfo.name == "")
+                "未命名用户${data.userInfo.uid}"
+            else
+                data.userInfo.name
 
         when (data.status) {
             2 -> {
-                val flag = holder?.getView(R.id.leaderFlag) as View
-                flag.visibility = View.VISIBLE
+                flag2.visibility = View.VISIBLE
+                flag1.visibility = View.GONE
             }
             1 -> {
-                val flag = holder?.getView(R.id.adminFlag) as View
-                flag.visibility = View.VISIBLE
+                flag1.visibility = View.VISIBLE
+                flag2.visibility = View.GONE
             }
             0 -> {
+                flag1.visibility = View.GONE
+                flag2.visibility = View.GONE
             }
         }
-//        }
-//        else {
-//            setItemImageDrawable(userLogo, R.drawable.ic_more)
-//            userName.text = "更多..."
-//        }
     }
-//
-//    override fun getItemCount(): Int {
-//        return when {
-//            dataList.isNullOrEmpty() -> 0
-//            dataList.size >= 10 -> 10
-//            else -> dataList.size
-//        }
-//    }
 }

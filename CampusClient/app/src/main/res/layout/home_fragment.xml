@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Welcome to Team校园 APP ！"
-        android:textColor="@color/blank"
+        android:textColor="@color/text_blank_1"
         android:textSize="22sp" />
 
 

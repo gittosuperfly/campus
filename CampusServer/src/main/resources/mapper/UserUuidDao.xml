@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cai.campus.server.dao.UserUuidDao">
+
+    <resultMap type="com.cai.campus.server.entity.UserUuid" id="UserUuidMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserUuidMap">
+        select
+          id, uuid, uid
+        from campus.user_uuid
+        where id = #{id}
+    </select>
+
+    <select id="queryByUid" resultMap="UserUuidMap">
+        select
+          id, uuid, uid
+        from campus.user_uuid
+        where uid = #{uid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserUuidMap">
+        select
+          id, uuid, uid
+        from campus.user_uuid
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserUuidMap">
+        select
+          id, uuid, uid
+        from campus.user_uuid
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into campus.user_uuid(uuid, uid)
+        values (#{uuid}, #{uid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update campus.user_uuid
+        <set>
+            <if test="uuid != null and uuid != ''">
+                uuid = #{uuid},
+            </if>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from campus.user_uuid where id = #{id}
+    </delete>
+
+</mapper>

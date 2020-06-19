@@ -1,6 +1,6 @@
 package com.cai.campus.server.controller;
 
-import com.cai.campus.model.Response;
+import com.cai.campus.model.WebApiResponse;
 import com.cai.campus.model.ResultCode;
 import com.cai.campus.server.entity.UserAccount;
 import com.cai.campus.server.service.UserService;
@@ -31,16 +31,16 @@ public class UserController {
      * @param password 密码
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Response<Null> loginApi(
+    public WebApiResponse<Null> loginApi(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password) {
         UserAccount tempUser = service.queryByPhone(phone);
         if (tempUser == null) {
-            return Response.get(ResultCode.BAD_REQUEST, "此手机号暂未注册");
+            return WebApiResponse.get(ResultCode.BAD_REQUEST, "此手机号暂未注册");
         } else if (tempUser.getPassword().equals(password)) {
-            return Response.get(ResultCode.SUCCESS, "登录成功");
+            return WebApiResponse.get(ResultCode.SUCCESS, "登录成功");
         } else {
-            return Response.get(ResultCode.BAD_REQUEST, "密码错误");
+            return WebApiResponse.get(ResultCode.BAD_REQUEST, "密码错误");
         }
     }
 
@@ -51,16 +51,12 @@ public class UserController {
      * @param password 密码
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public Response<Null> registerUserApi(
+    public WebApiResponse<Null> registerUserApi(
             @RequestParam("phone") String phone,
-            @RequestParam("password") String password) {
-        if (service.queryByPhone(phone) == null) {
-            UserAccount userAccount = new UserAccount(phone, password);
-            service.insert(userAccount);
-            return Response.get(ResultCode.SUCCESS, "注册成功");
-        } else {
-            return Response.get(ResultCode.BAD_REQUEST, "此手机号已被注册");
-        }
+            @RequestParam("password") String password,
+            @RequestParam("UUID") String uuid) {
+
+            return service.insert(phone,password,uuid);
     }
 
     /**
@@ -70,16 +66,16 @@ public class UserController {
      * @param password 新密码
      */
     @RequestMapping(value = "resetPassword", method = RequestMethod.POST)
-    public Response<Null> resetPasswordApi(
+    public WebApiResponse<Null> resetPasswordApi(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password) {
         UserAccount user = service.queryByPhone(phone);
         if (user == null) {
-            return Response.get(ResultCode.BAD_REQUEST, "手机号不存在");
+            return WebApiResponse.get(ResultCode.BAD_REQUEST, "手机号不存在");
         } else {
             user.setPassword(password);
             service.update(user);
-            return Response.get(ResultCode.SUCCESS, "修改成功");
+            return WebApiResponse.get(ResultCode.SUCCESS, "修改成功");
         }
     }
 
@@ -91,15 +87,15 @@ public class UserController {
      * @param value 值
      */
     @RequestMapping(value = "query/{type}", method = RequestMethod.POST)
-    public Response<UserAccount> queryUserApi(
+    public WebApiResponse<UserAccount> queryUserApi(
             @PathVariable("type") String type,
             @RequestParam("value") String value) {
         if (type.equals("id")) {
-            return Response.get(ResultCode.SUCCESS, "查询成功", this.service.queryById(Integer.parseInt(value)));
+            return WebApiResponse.get(ResultCode.SUCCESS, "查询成功", this.service.queryById(Integer.parseInt(value)));
         } else if (type.equals("phone")) {
-            return Response.get(ResultCode.SUCCESS, "查询成功", this.service.queryByPhone(value));
+            return WebApiResponse.get(ResultCode.SUCCESS, "查询成功", this.service.queryByPhone(value));
         } else {
-            return Response.get(ResultCode.BAD_REQUEST, "查询类型错误", null);
+            return WebApiResponse.get(ResultCode.BAD_REQUEST, "查询类型错误", null);
         }
     }
 
@@ -109,12 +105,12 @@ public class UserController {
      * @param user 修改后的值 { TODO 必须传来完整的用户数据，缺失将按null来处理。必须携带id、phone、password }
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Response<Null> updateUserApi(@RequestBody UserAccount user) {
+    public WebApiResponse<Null> updateUserApi(@RequestBody UserAccount user) {
         if (service.queryById(user.getUid()) != null) {
             service.update(user);
-            return Response.get(ResultCode.SUCCESS, "修改成功");
+            return WebApiResponse.get(ResultCode.SUCCESS, "修改成功");
         } else {
-            return Response.get(ResultCode.BAD_REQUEST, "修改失败");
+            return WebApiResponse.get(ResultCode.BAD_REQUEST, "修改失败");
         }
     }
 

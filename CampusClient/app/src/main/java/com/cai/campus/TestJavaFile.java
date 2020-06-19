@@ -1,14 +1,23 @@
 package com.cai.campus;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.Toast;
+import com.cai.campus.features.group.dialog.BottomEnumDialog;
 
 public class TestJavaFile {
+
+//    void func(){
+//        new BottomEnumDialog(this){
+//            @Override
+//            public void btnPickByTake(){
+//                //拍照
+//                //点击拍照时做的事
+//            }
+//            @Override
+//            public void btnPickBySelect() {
+//                //相册
+//                //点击相册时做的事
+//            }
+//
+//        }.show();
+//    }
+
 }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".features.user.update.UserUpdateActivity">
+
+    <RelativeLayout
+        android:id="@+id/groupTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:elevation="2dp">
+
+        <RelativeLayout
+            android:id="@+id/backBtn"
+            android:layout_width="60dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:text="用户信息修改"
+            android:textColor="@color/text_blank_1"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/userLogoImg"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp" />
+
+    <EditText
+        android:id="@+id/userNameEdit"
+        style="@style/UpdateUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/nameHint"
+        android:paddingStart="20dp" />
+
+    <EditText
+        android:id="@+id/userEmailEdit"
+        style="@style/UpdateUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp" />
+
+    <LinearLayout
+        style="@style/UpdateUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:text="性别"
+            android:textColor="@color/input_hint"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/userSexRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioMan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="男生" />
+
+            <RadioButton
+                android:id="@+id/radioWoman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="女生" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/userIntroEdit"
+        style="@style/UpdateUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/hint_intro"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp" />
+
+
+    <Button
+        android:id="@+id/submitBtn"
+        style="@style/FormInputTheme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_btn"
+        android:stateListAnimator="@null"
+        android:text="提交修改"
+        android:textColor="@color/white" />
+
+</LinearLayout>

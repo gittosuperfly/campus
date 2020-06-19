@@ -16,6 +16,7 @@ import com.cai.campus.R
 import com.cai.campus.common.code.android.*
 import com.cai.campus.common.code.camera.CameraManager
 import com.cai.campus.common.code.view.ViewfinderView
+import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RequestCode
 import com.cai.campus.common.router.RouterPath
 import com.google.zxing.BarcodeFormat
@@ -144,8 +145,7 @@ class CaptureActivity : Activity(), SurfaceHolder.Callback {
         //这里处理解码完成后的结果，此处将参数回传到Activity处理
         if (fromLiveScan) {
             val intent = intent
-            intent.putExtra("codedContent", rawResult.text)
-            intent.putExtra("codedBitmap", barcode)
+            intent.putExtra(ExtraKey.QR_REQUEST_VALUE, rawResult.text)
             setResult(RequestCode.SCAN_QR_CODE, intent)
             finish()
         }

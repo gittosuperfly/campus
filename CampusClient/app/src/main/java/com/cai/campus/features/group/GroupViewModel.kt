@@ -1,6 +1,5 @@
 package com.cai.campus.features.group
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.cai.campus.common.network.RetrofitFactory
 import com.cai.campus.common.network.api.GroupApiServer
 import com.cai.campus.common.network.model.GroupAccount
-import com.cai.campus.common.network.model.UserAccount
+import com.cai.campus.common.push.PushManager
 import com.cai.campus.common.repository.LocalRepoManager
 import com.cai.campus.common.repository.repo.AppData
 import com.cai.campus.common.utils.Prompt
+import com.mob.pushsdk.MobPush
 import kotlinx.coroutines.launch
 
 class GroupViewModel : ViewModel() {
@@ -29,8 +29,16 @@ class GroupViewModel : ViewModel() {
 
     fun getAllGroup() {
         viewModelScope.launch {
-            _groupList.value =
-                localStorage.lastLoginUser.uid?.let { api.queryUserAllGroup(it).data }
+            val groupList = localStorage.lastLoginUser.uid?.let { api.queryUserAllGroup(it).data }
+            _groupList.value = groupList
+            if (groupList != null) {
+                val tags = arrayOfNulls<String>(groupList.size)
+                for (i in groupList.indices) {
+                    tags[i] = groupList[i].groupId.toString()
+                }
+                MobPush.cleanTags()
+                PushManager.addGroup(tags)
+            }
         }
     }
 
