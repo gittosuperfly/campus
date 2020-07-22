@@ -18,7 +18,7 @@ class SignInRecyclerAdapter constructor(data: List<SignIn>) :
         val status = holder.getView(R.id.statusTv) as TextView
         val time = holder.getView(R.id.timeTv) as TextView
 
-        detail.text = signIn.signId.toString() + "" + signIn.detail
+        detail.text = signIn.detail
         time.text =
             Change.timestampToTime(signIn.createTime.toString()) + " > " + Change.secondsToMin(
                 signIn.endTime!! - signIn.createTime!!

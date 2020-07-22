@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="25dp"
             android:text="状态"
             android:textColor="@color/text_blank_1"
             android:textSize="16sp" />

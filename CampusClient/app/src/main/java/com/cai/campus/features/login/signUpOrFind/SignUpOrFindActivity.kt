@@ -86,7 +86,10 @@ class SignUpOrFindActivity : BaseActivity() {
             val phone = phoneEdit.text.toString()
             if (phone.isNotEmpty() && Check.isMobileNum(phone)) {
                 if (!isCountdown) {
-                    ShortMessageServer.sendCode(phone, ShortMessageServer.CREATE_CODE)
+                    ShortMessageServer.sendCode(
+                        phone,
+                        if (type == 1) ShortMessageServer.CREATE_CODE else ShortMessageServer.RESET_CODE
+                    )
                 } else {
                     Prompt.show("请稍后")
                 }

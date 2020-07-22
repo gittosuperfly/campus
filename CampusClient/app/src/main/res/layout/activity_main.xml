@@ -11,7 +11,9 @@
 
     <RelativeLayout
         android:id="@+id/mainTopBar"
+        android:background="@color/white"
         android:layout_width="match_parent"
+        android:elevation="2dp"
         android:layout_height="50dp">
 
         <ImageView

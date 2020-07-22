@@ -14,7 +14,6 @@ import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Change
 import kotlinx.android.synthetic.main.activity_notice_detail.*
-import kotlinx.android.synthetic.main.sign_in_list_activity.*
 
 @Route(path = RouterPath.NOTICE_DETAIL)
 class NoticeDetailActivity : BaseActivity() {
@@ -31,6 +30,9 @@ class NoticeDetailActivity : BaseActivity() {
         viewModel = ViewModelProvider(this).get(NoticeDetailViewModel::class.java)
         message = intent.getSerializableExtra(ExtraKey.GROUP_MESSAGE) as GroupMessage
 
+        backBtn.setOnClickListener {
+            finish()
+        }
 
         messageTv.text = message.notice!!.notice
         sendUserTv.text = "发件人：${message.createUserName}"

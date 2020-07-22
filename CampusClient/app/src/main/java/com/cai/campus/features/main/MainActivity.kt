@@ -20,7 +20,6 @@ import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RequestCode
 import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Check
-import com.cai.campus.common.utils.Location
 import com.cai.campus.common.utils.Prompt
 import com.cai.campus.features.group.GroupFragment
 import com.cai.campus.features.home.HomeFragment
@@ -28,7 +27,7 @@ import com.cai.campus.features.message.MessageFragment
 import com.cai.campus.features.user.UserFragment
 import com.google.gson.Gson
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 @Route(path = RouterPath.HOME_PAGE)
 class MainActivity : BaseActivity() {
@@ -37,7 +36,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initActivity(this, R.layout.main_activity)
+        initActivity(this, R.layout.activity_main)
     }
 
     @SuppressLint("ResourceType")
@@ -86,7 +85,14 @@ class MainActivity : BaseActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.VIBRATE,
+                Manifest.permission.GET_TASKS,
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
             ).subscribe {
                 if (it) {
 
@@ -101,15 +107,14 @@ class MainActivity : BaseActivity() {
     private fun bindNavAndViewPager() {
         mainViewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
-                return 4
+                return 3
             }
 
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
-                    0 -> HomeFragment()
-                    1 -> MessageFragment()
-                    2 -> GroupFragment()
-                    3 -> UserFragment()
+                    0 -> MessageFragment()
+                    1 -> GroupFragment()
+                    2 -> UserFragment()
                     else -> HomeFragment()
                 }
             }
@@ -124,13 +129,13 @@ class MainActivity : BaseActivity() {
             }
         })
 
+
         // 当ViewPager切换页面时，改变ViewPager的显示
         mainNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.home_nav_ic1 -> mainViewPager.setCurrentItem(0, true)
-                R.id.home_nav_ic2 -> mainViewPager.setCurrentItem(1, true)
-                R.id.home_nav_ic3 -> mainViewPager.setCurrentItem(2, true)
-                R.id.home_nav_ic4 -> mainViewPager.setCurrentItem(3, true)
+                R.id.home_nav_ic2 -> mainViewPager.setCurrentItem(0, true)
+                R.id.home_nav_ic3 -> mainViewPager.setCurrentItem(1, true)
+                R.id.home_nav_ic4 -> mainViewPager.setCurrentItem(2, true)
             }
             true
         }

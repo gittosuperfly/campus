@@ -2,6 +2,8 @@ package com.cai.campus.common.network.api
 
 import com.cai.campus.common.network.model.Response
 import com.cai.campus.common.network.model.UserAccount
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface UserApiServer {
@@ -43,5 +45,15 @@ interface UserApiServer {
     suspend fun updateUser(
         @Body user: UserAccount
     ): Response<UserAccount?>
+
+
+
+    @Multipart
+    @POST("/api/updateLogo")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun updateUserLogo(
+        @Part("uid") uid: Int,
+        @Part file: MultipartBody.Part
+    ): Response<String?>
 
 }

@@ -2,7 +2,6 @@ package com.cai.campus.features.message
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,7 @@ import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Check
 import com.cai.campus.features.message.adapter.MyMessageRecyclerAdapter
 import com.cai.campus.features.message.adapter.MySignInRecyclerAdapter
-import kotlinx.android.synthetic.main.message_fragment.*
+import kotlinx.android.synthetic.main.fragment_message.*
 
 @SuppressLint("SetTextI18n")
 class MessageFragment : Fragment() {
@@ -29,7 +28,7 @@ class MessageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.message_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_message, container, false)
     }
 
     override fun onResume() {

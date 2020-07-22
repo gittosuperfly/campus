@@ -26,6 +26,17 @@ interface GroupApiServer {
         @Field("groupId") groupId: Int
     ): Response<String?>
 
+
+    @POST("/api/group/update")
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    suspend fun updateGroup(
+        @Field("groupId") groupId: Int,
+        @Field("updateType") updateType: String = "name",
+        @Field("updateValue") value: String
+    ): Response<GroupAccount>
+
+
     @POST("/api/group/addGroup")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
@@ -70,7 +81,7 @@ interface GroupApiServer {
     ): Response<String?>
 
 
-    @POST("/api/group/quitGroup")
+    @POST("/api/group/transferGroup")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     suspend fun transferGroup(

@@ -9,6 +9,7 @@ import com.cai.campus.common.code.CreateQRCodeUtil
 import com.cai.campus.common.code.model.QRCodeInfo
 import com.cai.campus.common.network.RetrofitFactory
 import com.cai.campus.common.network.api.GroupApiServer
+import com.cai.campus.common.network.model.GroupAccount
 import com.cai.campus.common.network.model.GroupUser
 import com.cai.campus.common.network.model.UserAccount
 import com.cai.campus.common.repository.LocalRepoManager
@@ -21,6 +22,9 @@ class GroupDetailViewModel : ViewModel() {
 
     val localStorage = LocalRepoManager.load(AppData::class.java)
     private val api = RetrofitFactory.instance.getService(GroupApiServer::class.java)
+
+    private val _thisGroup = MutableLiveData<GroupAccount>()
+    val thisGroup: LiveData<GroupAccount> = _thisGroup
 
     private val _userList = MutableLiveData<List<GroupUser>>()
     val userList: LiveData<List<GroupUser>> = _userList
@@ -104,5 +108,19 @@ class GroupDetailViewModel : ViewModel() {
             Prompt.show(api.deleteGroup(groupId).message)
             _isFinish.value = true
         }
+    }
+
+    fun updateGroup(groupId: Int, name: String) {
+        viewModelScope.launch {
+            val response = api.updateGroup(groupId = groupId, value = name)
+            if (response.result == 1){
+                Prompt.show(response.message)
+                _thisGroup.value = response.data
+            }
+        }
+    }
+
+    fun setThisGroup(group:GroupAccount){
+        _thisGroup.value = group
     }
 }

@@ -9,12 +9,25 @@ import com.cai.campus.common.repository.LocalRepoManager
 import com.cai.campus.common.repository.repo.AppData
 import com.cai.campus.common.utils.Prompt
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+import java.io.UnsupportedEncodingException
+import java.net.URLEncoder
+
 
 class UserUpdateViewModel : ViewModel() {
     private val api = RetrofitFactory.instance.getService(UserApiServer::class.java)
     private val localStorage = LocalRepoManager.load(AppData::class.java)
 
-    fun updateUserInfo(userName: String, email: String, sex: Int, intro: String) {
+    fun updateUserInfo(
+        userName: String,
+        email: String,
+        sex: Int,
+        intro: String,
+        file: File? = null
+    ) {
         val userInfo = localStorage.lastLoginUser
 
         userInfo.name = userName
@@ -27,6 +40,20 @@ class UserUpdateViewModel : ViewModel() {
             Prompt.show(response.message)
             if (response.result == 1) {
                 localStorage.lastLoginUser = userInfo
+            }
+
+            if (file != null) {
+
+                val requestFile: RequestBody =
+                    RequestBody.create(MediaType.parse("form-data"), file)
+                var encodeName: String? = null
+                try {
+                    encodeName = URLEncoder.encode(file.name, "UTF-8")
+                } catch (e: UnsupportedEncodingException) {
+                    e.printStackTrace()
+                }
+                val body = MultipartBody.Part.createFormData("file", encodeName, requestFile)
+                api.updateUserLogo(uid = userInfo.uid!!, file = body)
             }
         }
     }

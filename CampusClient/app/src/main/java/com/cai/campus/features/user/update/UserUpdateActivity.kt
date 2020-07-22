@@ -1,25 +1,36 @@
 package com.cai.campus.features.user.update
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.cai.campus.R
 import com.cai.campus.app.BaseActivity
 import com.cai.campus.common.router.RouterPath
+import com.cai.campus.common.utils.UriToPath
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
 import kotlinx.android.synthetic.main.activity_user_update.*
+import java.io.File
 
 
 @Route(path = RouterPath.UPDATE_USER)
 class UserUpdateActivity : BaseActivity() {
 
     private lateinit var viewModel: UserUpdateViewModel
+    private lateinit var logoImageFile: File
+    private var isUpdateLogo = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +71,13 @@ class UserUpdateActivity : BaseActivity() {
                 userNameEdit.text.toString(),
                 userEmailEdit.text.toString(),
                 sex!!,
-                userIntroEdit.text.toString()
+                userIntroEdit.text.toString(),
+                if (isUpdateLogo) logoImageFile else null
             )
         }
 
+
+        userLogoImg.visibility = View.GONE
         userLogoImg.setOnClickListener {
             Matisse.from(this)
                 .choose(MimeType.ofImage(), false) // 选择 mime 的类型
@@ -85,9 +99,24 @@ class UserUpdateActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 12306 && resultCode == RESULT_OK) {
+
+            val uri = Matisse.obtainResult(data)[0]
+
+            val imageAbsolutePath =
+                UriToPath.getImageAbsolutePath(this, uri)
+
+            val file = File(imageAbsolutePath);
+
+            Log.d("caicai", imageAbsolutePath.toString())
+
+            logoImageFile = file
+            isUpdateLogo = true
+//
             Glide.with(this)
-                .load(Matisse.obtainResult(data))
+                .load(file)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
                 .into(userLogoImg)
+
         }
     }
 }

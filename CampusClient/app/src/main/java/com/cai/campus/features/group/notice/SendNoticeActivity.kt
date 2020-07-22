@@ -10,7 +10,9 @@ import com.cai.campus.common.network.model.GroupAccount
 import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RouterPath
 import com.cai.campus.common.utils.Prompt
+import kotlinx.android.synthetic.main.activity_user_sign_in_summary.*
 import kotlinx.android.synthetic.main.send_notice_activity.*
+import kotlinx.android.synthetic.main.send_notice_activity.backBtn
 
 @Route(path = RouterPath.SEND_NOTICE)
 class SendNoticeActivity : BaseActivity() {
@@ -22,6 +24,10 @@ class SendNoticeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initActivity(this, R.layout.send_notice_activity)
+
+        backBtn.setOnClickListener {
+            finish()
+        }
     }
 
 

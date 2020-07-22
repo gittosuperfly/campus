@@ -12,10 +12,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.R
 import com.cai.campus.common.router.ExtraKey
 import com.cai.campus.common.router.RouterPath
-import com.cai.campus.common.utils.Prompt
 import com.cai.campus.features.group.adapter.GroupRecyclerAdapter
-import kotlinx.android.synthetic.main.edit_dialog_layout.*
-import kotlinx.android.synthetic.main.group_fragment.*
+import kotlinx.android.synthetic.main.fragment_group.*
 
 
 class GroupFragment : Fragment() {
@@ -26,7 +24,7 @@ class GroupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.group_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_group, container, false)
     }
 
     override fun onResume() {

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,10 +42,7 @@ class GroupDetailActivity : BaseActivity() {
     override fun init() {
         viewModel = ViewModelProvider(this).get(GroupDetailViewModel::class.java)
         thisGroup = intent.getSerializableExtra(ExtraKey.GROUP_DETAIL_VALUE) as GroupAccount
-
-        groupNameTv.text = thisGroup.name
-        groupIdTv.text = "群组ID: ${thisGroup.groupId}"
-
+        viewModel.setThisGroup(thisGroup)
 
         viewModel.getUserList(thisGroup.groupId)
         userGridListAdapter = UserGridRecyclerAdapter(listOf())
@@ -79,6 +78,28 @@ class GroupDetailActivity : BaseActivity() {
                     .navigation()
             }
         }
+        updateGroupBtn.clickListener {
+            if (viewModel.userStatus.value!! == 0) {
+                Prompt.show("您暂无修改权限")
+            } else {
+                val content: View =
+                    LayoutInflater.from(this).inflate(R.layout.edit_dialog_layout, null)
+                val edit = content.findViewById<EditText>(R.id.dialogEdit)
+                edit.hint = "请输入新的群名称"
+                val bundle =
+                    AlertDialog.Builder(this)
+                        .setTitle("修改群名称")
+                        .setView(content).setPositiveButton(
+                            "确定"
+                        ) { _, _ -> //按下确定键后的事件
+                            viewModel.updateGroup(thisGroup.groupId, edit.text.toString())
+                        }.setNegativeButton("取消", null)
+
+                val dialog = bundle.create()
+                dialog.show()
+                dialogCenter(dialog)
+            }
+        }
 
         deleteGroupBtn.clickListener {
             if (viewModel.userStatus.value!! != 2) {
@@ -112,7 +133,7 @@ class GroupDetailActivity : BaseActivity() {
         quitGroupBtn.clickListener {
 
             val builder =
-                AlertDialog.Builder(this).setMessage("您确定要退出群" + thisGroup.name+"吗?")
+                AlertDialog.Builder(this).setMessage("您确定要退出群" + thisGroup.name + "吗?")
                     .setPositiveButton(
                         "确定"
                     ) { _, _ -> //按下确定键后的事件
@@ -131,6 +152,12 @@ class GroupDetailActivity : BaseActivity() {
     }
 
     override fun subscribeOnView() {
+
+        viewModel.thisGroup.observe(this, Observer {
+            groupNameTv.text = it.name
+            groupIdTv.text = "群组ID: ${it.groupId}"
+        })
+
         viewModel.userList.observe(this, Observer {
 
             userGridListAdapter.refresh(it)
@@ -155,7 +182,7 @@ class GroupDetailActivity : BaseActivity() {
                     }
 
                     override fun makeOverBtnClick() {
-                        AlertDialog.Builder(this@GroupDetailActivity)
+                        val builder = AlertDialog.Builder(this@GroupDetailActivity)
                             .setTitle("是否将群" + thisGroup.name + "转让给" + it[position].userInfo.name + "?")
                             .setPositiveButton(
                                 "确定"
@@ -164,7 +191,10 @@ class GroupDetailActivity : BaseActivity() {
                                     thisGroup.groupId,
                                     it[position].userInfo.uid!!
                                 )
-                            }.setNegativeButton("取消", null).show()
+                            }.setNegativeButton("取消", null)
+                        val dialog = builder.create()
+                        dialog.show()
+                        dialogCenter(dialog)
                     }
 
                     override fun quitUserBtnClick() {

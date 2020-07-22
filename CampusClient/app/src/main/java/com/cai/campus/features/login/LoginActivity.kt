@@ -1,10 +1,8 @@
 package com.cai.campus.features.login
 
 import android.animation.ObjectAnimator
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -12,10 +10,11 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.cai.campus.R
 import com.cai.campus.app.BaseActivity
 import com.cai.campus.common.router.RouterPath
+import com.cai.campus.common.utils.JNIUtils
 import com.cai.campus.common.utils.Prompt
-import com.mob.pushsdk.MobPushNotifyMessage
+import com.cai.campus.common.utils.RSAUtils
 import kotlinx.android.synthetic.main.login_activity.*
-import kotlin.math.log
+import java.nio.charset.Charset
 
 
 @Route(path = RouterPath.LOGIN_PAGE)
@@ -34,6 +33,37 @@ class LoginActivity : BaseActivity() {
         subscribeViewEvent()
         setViewClickListener()
         setViewAnimation()
+
+        var data = byteArrayOf()
+
+        data = RSAUtils.encryptData(
+            "this is json".toByteArray(Charset.forName("UTF-8")),
+            RSAUtils.loadPublicKey(String(JNIUtils.getRsaPublicKey()))
+        )
+
+        Log.d("rsa_test", "加密后：" + data.contentToString())
+
+        val result = RSAUtils.decryptData(
+            data,
+            RSAUtils.loadPrivateKey(
+                "MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEAu4a7+nsg5cde9vD1" +
+                        "hxRTX1haa7KIGpxm68AWEPsBU9lWn8pFF/ne0c4Cuvwnx1j93GzJ+FhtQHsWISUf" +
+                        "gHtlPwIDAQABAkAC0A+Lv0MMD0R+YbjdENH7USDyEph2BbiJerUaBhnL/yT5ecpd" +
+                        "2q7myD0b+OSA2hanxLajL3yvRsLd4+YRnCbZAiEA355N6SpRniTPV/5oDjaY30IX" +
+                        "iGvXk7zTzwh2X79BQTUCIQDWrnh+ZbODvqrWbviAPYUhgTxo5lF8V8kYkhpQ8NPv" +
+                        "IwIgecAVJ1gVLAdapMwtF1/+h7/SVEJzE0sB/3zaBnN5MekCID72eqZvg3/PKuGr" +
+                        "ODy8TlBuS95kNl/mizcmmotEppPLAiAXmdg3zeFvZMwwxJQOYERh4G0eTNuGdB4A" +
+                        "HdeoXarskw=="
+            )
+        )
+
+        var str = ""
+        for (element in result) {
+            str += element.toChar()
+        }
+        Log.d("rsa_test", "解密后：" + str)
+
+
     }
 
     override fun subscribeOnView() {

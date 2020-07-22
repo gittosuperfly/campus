@@ -29,11 +29,20 @@ class SignInStatisticsRecyclerAdapter constructor(data: List<GroupSignInRecord>)
 
 
         userNameTv.text = record.userName
-        statusTv.text = if (record.record.isDone == 0) "未签到" else "已签到"
+        statusTv.text = when (record.record.isDone) {
+            0 -> "未签到"
+            1 -> "已签到"
+            2 -> "发起人"
+            else -> "系统错误"
+        }
         statusTv.setTextColor(
             Color.parseColor(
-                if (record.record.isDone == 0) "#f56b6c"
-                else "#66c33a"
+                when (record.record.isDone) {
+                    0 -> "#f56b6c"
+                    1 -> "#66c33a"
+                    2 -> "#0080ff"
+                    else -> "#000000"
+                }
             )
         )
 
@@ -48,7 +57,7 @@ class SignInStatisticsRecyclerAdapter constructor(data: List<GroupSignInRecord>)
             val distance = AMapUtils.calculateLineDistance(adminLatLng, userLatLng)
             distanceTv.text = "${distance.toInt()}米"
             distanceTv.visibility = View.VISIBLE
-            if (distance.toInt() > 100){
+            if (distance.toInt() > 100) {
                 distanceTv.setTextColor(Color.parseColor("#e6a13c"))
             }
         }

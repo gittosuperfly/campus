@@ -37,6 +37,11 @@ class UserSignInSummaryActivity : BaseActivity() {
         userCensusRv.adapter = adapter
 
         viewModel.getUserSignInRecord(thisUser.uid!!, groupId!!)
+
+
+        backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     override fun subscribeOnView() {
